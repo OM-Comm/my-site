@@ -1,0 +1,913 @@
+{
+  "name": "audio_social",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "unit": "minutes"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "q": "has:attachment",
+          "sender": "redacted@example.com"
+        },
+        "options": {
+          "downloadAttachments": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        -176
+      ],
+      "id": "eb77edec-e02b-407c-a52f-2a65afcc7360",
+      "name": "Gmail Trigger",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "62e024d7-6f77-48fc-8353-24c53bc963ac",
+              "name": "content",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        -192
+      ],
+      "id": "390e4bba-00c0-41d0-ad91-9bd070569ccb",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        848,
+        -16
+      ],
+      "id": "93c5c9cb-77ea-4488-a4a4-be8e6ff45217",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "upload",
+        "path": "=/home/c4lbkemzlbrg/public_html/dailysignals.info/audio/{{ $binary.data.fileName }}"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        2048,
+        -192
+      ],
+      "id": "1cec0c57-285a-4b66-a0ba-dba6992a042b",
+      "name": "FTP",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- CONFIG ---\nconst MAX_CHARS = 4900;     // Google TTS limit (characters, not bytes)\nconst PARA_BREAK = 600;     // pause between paragraphs (ms)\n\n// --- 1\ufe0f\u20e3 Get and parse model output ---\nlet outer = String($json.output || '').trim();\nlet payload;\n\n// Sometimes the model returns a stringified JSON object\ntry {\n  payload = JSON.parse(outer);\n} catch {\n  // Or sometimes n8n already parses it as an object\n  payload = $json.output;\n}\n\n// --- 2\ufe0f\u20e3 Extract the real script ---\nlet script = String(payload?.script || '').trim();\n\n// remove <script> wrapper if system prompt still uses it\nscript = script.replace(/^<script>/i, '').replace(/<\\/script>$/i, '').trim();\n\n// --- 3\ufe0f\u20e3 Verify true character count ---\nconst actualChars = script.length;\nconst reportedChars = Number(payload?.chars || 0);\n\nconsole.log(`Actual script length: ${actualChars}, model reported: ${reportedChars}`);\n\nif (actualChars > 3800) {\n  console.warn(`\u26a0\ufe0f Script exceeds 3,800-char budget (${actualChars}). Will still attempt SSML generation.`);\n}\n\n// --- 4\ufe0f\u20e3 Split into paragraphs ---\nconst paragraphs = script.split(/\\n{2,}/).map(p => p.trim()).filter(Boolean);\n\n// --- 5\ufe0f\u20e3 Escape XML-sensitive characters in text ---\nconst esc = (t) =>\n  t.replace(/&/g, '&amp;')\n   .replace(/</g, '&lt;')\n   .replace(/>/g, '&gt;');\n\n// --- 6\ufe0f\u20e3 Assemble SSML ---\nlet assembled = '';\nfor (const p of paragraphs) {\n  const node = `<p>${esc(p)}</p>`;\n  const test = assembled\n    ? `${assembled}<break time=\"${PARA_BREAK}ms\"/>${node}`\n    : node;\n\n  const candidate = `<speak>${test}</speak>`;\n  if (candidate.length > MAX_CHARS) break; // stop before Google limit\n  assembled = test;\n}\n\nif (!assembled) throw new Error('No speakable content after processing.');\n\nconst ssml = `<speak>${assembled}</speak>`;\nconst total = ssml.length;\n\n// --- 7\ufe0f\u20e3 Return SSML object for Google TTS node ---\nreturn [{\n  json: {\n    ssml,\n    chars: total,\n    fileName: 'csd_audio.mp3'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1408,
+        -192
+      ],
+      "id": "8fe2b9c4-1542-4631-83ff-e64e9ad67628",
+      "name": "SSML Chunker"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "path": "/home/c4lbkemzlbrg/public_html/dailysignals.info/podcast.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        2384,
+        -208
+      ],
+      "id": "87c1cb3f-e6cb-4aea-b1bd-4fab893724d9",
+      "name": "SFTP Download",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        544
+      ],
+      "id": "08cf8a07-98df-447e-9261-2974d83e46f5",
+      "name": "OpenAI Chat Model2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create 3 thematic social media post pairs (X + LinkedIn) based strictly on the newsletter content below.\n\nEach post must end with:\nhttps://dailysignals.info/{{ $json.slug }}.html\n\nFollow the system prompt for tone, structure, and JSON output format.\n\nSource content:\n{{ $('Edit Fields').item.json.content }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a financial content strategist and social media copywriter for Crypto Signals Daily \u2014 an institutional-style crypto intelligence brand.\n\nOBJECTIVE:\nFrom each newsletter, create 3 distinct social post pairs:\n1\ufe0f\u20e3 A short version for X (formerly Twitter)\n2\ufe0f\u20e3 A longer version for LinkedIn\n\nEach pair should focus on one clear theme investors care about (e.g. Bitcoin ETF flows, institutional funding, policy risks).  \nBoth versions must end with a link to the full newsletter article: https://dailysignals.info/{{ $json.slug }}.html\n\nTONE & STYLE:\n\u2022 Professional, factual, and composed \u2014 similar to Bloomberg Crypto or CoinDesk Pro.  \n\u2022 No emojis, hashtags, slang, or \u201cthread\u201d wording.  \n\u2022 One voice: \u201cCrypto Signals Daily\u201d \u2014 credible, neutral, insightful.  \n\u2022 Attribute opinions or forecasts (\u201cDeepSeek AI forecasts\u2026\u201d) clearly.  \n\u2022 Avoid speculation and unsupported claims.  \n\u2022 Always round numbers sensibly (e.g., \u201c$1.2B\u201d not \u201c$1,220,000,000\u201d).\n\nPLATFORM RULES:\n- **X version** \u2192 \u2264 260 characters. Single paragraph with one insight or takeaway.  \n- **LinkedIn version** \u2192 550\u2013750 characters. 2\u20133 concise paragraphs giving context \u2192 insight \u2192 takeaway.  \n\nOUTPUT FORMAT:\nReturn JSON only. Your first character must be \"[\" and last character must be \"]\".\nOutput must be a JSON array of exactly 3 objects (minItems=3, maxItems=3).\nEach object must have only:\n\t\u2022\t\"theme\" (string)\n\t\u2022\t\"x_post\" (string)\n\t\u2022\t\"linkedin_post\" (string)\nNo other keys. No wrapper keys like output or posts.\n\nSKELETON TO FILL (edit values only; keep structure and key order):\n[\n  {\"theme\":\"\",\"x_post\":\"\",\"linkedin_post\":\"\"},\n  {\"theme\":\"\",\"x_post\":\"\",\"linkedin_post\":\"\"},\n  {\"theme\":\"\",\"x_post\":\"\",\"linkedin_post\":\"\"}\n]\n\nLink rule: Both x_post and linkedin_post must end with exactly\nhttps://dailysignals.info/{{ $json.slug }}.html\n(no query params, no punctuation after the URL).\n\nValidation (the model must self-check before replying):\n  \n  1) Is the first character \"[\" and the last \"]\"? \n  2) Are there exactly 3 objects? \n  3) Do all objects have ONLY the three required keys? \n  4) Do both posts end EXACTLY with https://dailysignals.info/{{ $json.slug }}.html ?\n  5) Are X posts \u2264 260 chars and LinkedIn posts 550\u2013750 chars?\n\nIf any check fails, FIX and re-emit the JSON.\n\nCONTENT RULES:\n\u2022 Use **only** facts explicitly found in {{$('Edit Fields').item.json.content}}.\n\u2022 Do not fabricate quotes, data, or events.  \n\u2022 Vary themes \u2014 no repetition across the three pairs.  \n\u2022 Each post must feel useful to a trader or market observer.  \n\u2022 Link must appear at the end of every post exactly once.\n\nQUALITY CHECKLIST:\n\u2705 3 thematic pairs (X + LinkedIn)  \n\u2705 Factually correct and source-based  \n\u2705 Tone professional, neutral  \n\u2705 Character limits within range  \n\u2705 Each post ends with the newsletter link"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        368
+      ],
+      "id": "f9286aed-fb4b-4347-90bf-f290662260ad",
+      "name": "Social Post Generators"
+    },
+    {
+      "parameters": {
+        "text": "={{ $('X Posts Extractor').item.json.x_post }}x",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        368
+      ],
+      "id": "52b1f77f-60d2-4bfc-b4fd-c9b58e32ab04",
+      "name": "Create Tweet",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        368
+      ],
+      "id": "2061633b-c892-4c69-9564-d40385387144",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "69051f0c-6669-4ac1-8766-88c711296d55",
+              "name": "x_post",
+              "value": "={{ $('Split Out').item.json.x_post }}?utm_source=",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1728,
+        368
+      ],
+      "id": "938ea2dd-22ca-4b3f-9cb3-db6bfab020a7",
+      "name": "X Posts Extractor"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0dbab366-e1e2-4fa4-a0fa-ca4d7b01d0fc",
+              "name": "LP",
+              "value": "={{ $json.linkedin_post}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1552,
+        368
+      ],
+      "id": "a019c1f5-014a-4c45-863b-edb0ecf6aaaa",
+      "name": "LinkedIn Posts Extractor"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2112,
+        368
+      ],
+      "id": "11a78fd6-f0e4-4433-9d83-0fac4a712b71",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "postAs": "organization",
+        "organization": "107219554",
+        "text": "={{ $('LinkedIn Posts Extractor').item.json.LP }}",
+        "shareMediaCategory": "ARTICLE",
+        "additionalFields": {
+          "description": "={{ $('Split Out').item.json.x_post }}",
+          "originalUrl": "=http://dailysignals.info/{{ $('Slug Extractor1').item.json.slug }}.html?utm_source=linkedin",
+          "thumbnailBinaryPropertyName": "data",
+          "title": "={{ $('Split Out').item.json.theme }}"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        2496,
+        384
+      ],
+      "id": "598ff598-299f-4e9a-a2b9-d18cd6f82f33",
+      "name": "Create Posts",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://dailysignals.info/images/{{ $('Slug Extractor1').item.json.slug }}.png",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2336,
+        384
+      ],
+      "id": "8062a167-b60e-413c-8041-31170b2f2416",
+      "name": "Image",
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3184,
+        512
+      ],
+      "id": "7cbf6860-5881-4be1-889e-385ff51a4077",
+      "name": "2 Hr"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa1a8ed3-309c-4488-9b48-97324b6620ca",
+              "name": "slug",
+              "value": "={{\n  (() => {\n    const t = String($node[\"Edit Fields\"].json.content || '');\n    // Match anything between / and .html?utm_source=newsletter\n    const re = /\\/([^\\/]+?)\\.html\\?utm_source=newsletter/gi;\n    const matches = [];\n    let m;\n    while ((m = re.exec(t)) !== null) matches.push(m[1]);\n    // Take the first match and append .mp3\n    return (matches[0] || 'daily_briefing');\n  })()\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        368
+      ],
+      "id": "bdc1962a-688b-4bb5-a2a6-d66a6fa8a095",
+      "name": "Slug Extractor1"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "audioContent",
+        "options": {
+          "fileName": "={{\n  (() => {\n    const t = String($node[\"Edit Fields\"].json.content || '');\n    // Match anything between / and .html?utm_source=newsletter\n    const re = /\\/([^\\/]+?)\\.html\\?utm_source=newsletter/gi;\n    const matches = [];\n    let m;\n    while ((m = re.exec(t)) !== null) matches.push(m[1]);\n    // Take the first match and append .mp3\n    return (matches[0] || 'daily_briefing') + '.mp3';\n  })()\n}}",
+          "mimeType": "audio/mpeg"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1856,
+        -192
+      ],
+      "id": "e730f18e-9003-474a-8a4a-1048271379c8",
+      "name": "Audio File Compiler"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://texttospeech.googleapis.com/v1/<placeholder>",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ \n  {\n    input: { ssml: $json.ssml },                  // <-- your real SSML here\n    voice: { languageCode: 'en-US', name: 'en-US-Neural2-F'\n},\n    audioConfig: { audioEncoding: 'MP3', speakingRate: 1.05, pitch: -1.5 }\n  } \n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1632,
+        -192
+      ],
+      "id": "3dd1a684-1903-47b7-88b0-2009dee89544",
+      "name": "TTS Processor"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1408,
+        208
+      ],
+      "id": "1e961423-edab-4752-ae03-c64a8fa8f358",
+      "name": "OpenAI Chat Model1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=write a 1000 chars show note for this episode's Spotify description box of the daily episode of Crypto Signals Daiy Briefing. Only give topline of the show, so readers feel urged to listen to the show.:  {{ $json.output }}",
+        "options": {
+          "systemMessage": "You're a professional show synopsis writer, and you're to write the show note for the episode to tease about what this episode is about. Write in the following format:\n\n<p><strong>Crypto Signals Daily Briefing \u2014 <date><p><strong>\n<p><em>Open-source Intelligence for Crypto</p></em>\n\n<major token price movements mentioned in the show>\n\n<the top 3 events mentioned in the show, just topline without revealing all details, one event per paragraph, either hide implication of the event, or pose a provoking question around implcation, don't reveal>\n\n<major indicator to look at mentioned in the show>\n\nstrictly include ONLY details mentioned in the show, DO NOT create events/numbers.\n\noutput the write up in html, end the show note with the below:\n\n</p><p><a href=\"https://dailysignals.info?utm_source=spotify\" rel=\"ugc noopener noreferrer\" target=\"_blank\">\u2060\u2060<strong>Subscribe to Crypto Signals Daily Newsletter</strong>\u2060\u2060\u2060\u2060</a></p><p><strong></strong><a href=\"https://x.com/dailysignalsio\" rel=\"ugc noopener noreferrer\" target=\"_blank\">\u2060\u2060\u2060\u2060<strong>Crypto Signals Daily on X</strong>\u2060\u2060\u2060\u2060</a><strong></strong></p><p><br /></p><p><strong>Disclaimer:</strong>\u00a0The content provided in this newsletter is for educational purposes only and does not constitute financial, investment, legal, or tax advice. You are encouraged to conduct your own research before making any investment decisions. Daily Signals and its affiliates are not responsible for any losses or damages resulting from reliance on the information presented.</p>\n\nOutput ONLY clean HTML content \u2014 starting with <html> and <body> tags.\nDo NOT include any <table>, <tr>, <td>, or <meta> wrappers.\nDo NOT escape HTML entities.\nDo NOT return markdown or code fences (```html).\nOutput raw HTML snippet without enclosing table/body/html tags."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1408,
+        32
+      ],
+      "id": "8073fd58-9a54-4a27-99c8-3237d6850a96",
+      "name": "show note"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Code node (per-item). Input: item.json.output (HTML from AI Agent)\n// Output: [{ json: { data: \"<!DOCTYPE html>...\"} }, ...]  // ONLY the HTML in `data`\n\nfunction decodeEntities(s) {\n  return s\n    .replace(/&lt;/g, '<')\n    .replace(/&gt;/g, '>')\n    .replace(/&amp;/g, '&')\n    .replace(/&quot;/g, '\"')\n    .replace(/&#39;/g, \"'\");\n}\n\nreturn $input.all().map(({ json }) => {\n  let html = String(json.output || '').trim();\n\n  // Strip code fences\n  html = html.replace(/^```(?:html)?\\s*/i, '').replace(/```$/i, '').trim();\n\n  // Decode if escaped\n  if (!/^<html[\\s>]/i.test(html) && /&lt;html/i.test(html)) {\n    html = decodeEntities(html);\n  }\n\n  // Remove any accidental table wrappers\n  html = html.replace(/<\\/?(table|thead|tbody|tr|td|th)\\b[^>]*>/gi, '').trim();\n\n  // Add <!DOCTYPE html> if missing and we have <html>\n  if (/^<html[\\s>]/i.test(html) && !/^<!DOCTYPE html>/i.test(html)) {\n    html = '<!DOCTYPE html>\\n' + html;\n  }\n\n  // Emit only the HTML under `data`\n  return { json: { data: html } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        32
+      ],
+      "id": "8cd35b2a-8b4e-4e27-b38f-c5e2f3389347",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "=show-note-{{ $now }}.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1968,
+        32
+      ],
+      "id": "1523b955-46ae-450d-89f3-b59fee09cec5",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  { \"theme\": \"...\", \"x_post\": \"...\", \"linkedin_post\": \"...\" },\n  { \"theme\": \"...\", \"x_post\": \"...\", \"linkedin_post\": \"...\" },\n  { \"theme\": \"...\", \"x_post\": \"...\", \"linkedin_post\": \"...\" }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1184,
+        544
+      ],
+      "id": "66f1ef9f-3ab3-4975-9335-f45fc9d41031",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1904,
+        368
+      ],
+      "id": "3ae8bda4-54c5-468a-8007-6265c3d09bd2",
+      "name": "5 mins"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=create a script for a podcaster, focus should be on what traders investors care most, it's meant to be for investors/traders to grasp an overview of the markets to start their day from the content below:\n\n{{ $json.content }}\n\nOutput exactly one JSON object with fields \"script\" (string) and \"chars\" (integer). No other text.",
+        "options": {
+          "systemMessage": "=You are the financial news narrator and scriptwriter for the podcast \u201cCrypto Signals Daily Briefing\u201d.\n\nGOAL\nProduce a complete narration script that is \u2264 3,500 characters (including spaces), suitable for TTS.\n\nGLOBAL CONTEXT (assumptions for this session)\n- It is {{ $now }}.\n- Donald Trump is the current U.S. President (re-elected January 2025). Do not call him \u201cformer\u201d.\n\nSOURCING\n- You must only use facts present in this variable: {{ $json.content }}.\n- Never guess numbers, names, tickers, quotes, dates, or prices.\n- If something is not in {{ $json.content }}, omit it.\n- If sources conflict inside {{ $json.content }}, state the conflict neutrally and avoid choosing sides.\n\nTONE & VOICE\n- Calm, professional, newsroom style (Bloomberg/CNBC vibe) without saying it.\n- No hype, slang, or dramatic flourishes.\n- Natural spoken English; contractions allowed but sparing.\n- Keep openings plain; avoid adjectives like \u201cinsightful\u201d, \u201cmeasured\u201d, \u201cdeliberate\u201d.\n\nSTRUCTURE (paragraphs separated by one blank line; no bullets or subheads)\n1) Opening greeting:\n   - Short welcome, DO NOT say \"Good Morning\", \"Good Evening\", \"Good Afternoon\" (as it's international show, listeners are globally located.)\n   - Mention: \u201cCrypto Signals Daily Briefing\u201d, tagline \u201cthe open-source intelligence for crypto\u201d, and today\u2019s date naturally.\n   - Do NOT directly address \u201ctraders\u201d or \u201cinvestors\u201d.\n   - After a quick introduction, dive straight away into the key topics.\n2) Market overview:\n   - Bitcoin, Ethereum rounded levels and % moves if present in {{ $json.content }}.\n   - Sentiment via facts only (e.g., Fear & Greed index value, ETF flows), not vibes.\n3) Macro / policy:\n   - One or two developments from {{ $json.content }} that shaped sentiment; connect plainly to markets.\n4) Institutional & on-chain:\n   - ETF flows, corporate treasury holdings, whale flows, on-chain where stated.\n5) Broader market / corporate tech:\n   - Funding, product releases, listings, if present.\n6) Closing reflection:\n   - Key levels/catalysts to watch (only those in {{ $json.content }}).\n   - Conclude with this exact line (do not alter punctuation):\n   \u201cYou\u2019ve been listening to Crypto Signals Daily Briefing. Stay tuned and stay informed \u2014 see you in the next episode, just 24 hours from now.\u201d\n\nSTYLE RULES\n- No timestamps, stage directions, or headings.\n- Use numerals for prices/percents; round sensibly.\n- Write in paragraphs (one blank line between).\n- Avoid lists and bullets.\n- Keep sentence economy: ~1\u20133 sentences per paragraph; no redundancy.\n\nANTI-HALLUCINATION PROTOCOL\n- \u274c Never invent or estimate figures.\n- \u274c Never combine numbers from different contexts.\n- \u2705 Use only numbers explicitly present in {{ $json.content }}.\n- \u2705 If uncertain, omit or say \u201caccording to the source in today\u2019s brief\u201d.\n\nOUTPUT FORMAT (RESPONSE_SCHEMA)\nReturn exactly this JSON (no extra text, no markdown):\n{\"script\":\"...final narration text only...\",\"chars\":NNNN}\n\nHARD CONSTRAINT\n- The value of \"script\" must be \u2264 3,500 characters (including spaces)."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        848,
+        -192
+      ],
+      "id": "d97f1741-553a-4b8f-955f-283f7b0f3bfa",
+      "name": "AI Script Generator"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 1,
+        "simple": false,
+        "filters": {
+          "q": "redacted@example.com has:attachment in:sent"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        336,
+        -80
+      ],
+      "id": "2187e0dc-509c-430a-9026-c106ddd47792",
+      "name": "Back-up Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "redacted@example.com",
+        "subject": "=Crypto Signals Daily Show Note {{ $today }}",
+        "message": "=https://dailysignals.info/audio/{{\n  (() => {\n    const t = String($node[\"Edit Fields\"].json.content || '');\n    // Match anything between / and .html?utm_source=newsletter\n    const re = /\\/([^\\/]+?)\\.html\\?utm_source=newsletter/gi;\n    const matches = [];\n    let m;\n    while ((m = re.exec(t)) !== null) matches.push(m[1]);\n    // Take the first match and append .mp3\n    return (matches[0] || 'daily_briefing') + '.mp3';\n  })()\n}}\n\n{{ $('Gmail Trigger').item.json.subject }}\n",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2128,
+        32
+      ],
+      "id": "3f4f6b6d-21b0-458a-8570-aa4139142f67",
+      "name": "Show Note Delivery",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "redacted@example.com",
+        "subject": "n8n Crypto Signals Daily Workflow Failure",
+        "message": "Show Note Undeliverable",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2384,
+        48
+      ],
+      "id": "4afbb4c5-81a2-4d4b-b5e4-0afeff648064",
+      "name": "Show Note Error Msg"
+    },
+    {
+      "parameters": {
+        "sendTo": "redacted@example.com",
+        "subject": "n8n Crypto Signals Daily Workflow Failure",
+        "message": "FTP Upload Failure",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2224,
+        -112
+      ],
+      "id": "2b15944e-e1dc-408e-aaf9-d44b5477b33c",
+      "name": "FTP Error Msg"
+    },
+    {
+      "parameters": {
+        "sendTo": "redacted@example.com",
+        "subject": "n8n Crypto Signals Daily Workflow Failure",
+        "message": "LinkedIn Posting Failed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2688,
+        464
+      ],
+      "id": "ac29ee10-302f-44e1-b270-cb19f1e3fbc9",
+      "name": "LinkedIn Posting Error Msg"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Back-up Trigger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Script Generator",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slug Extractor1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Script Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSML Chunker": {
+      "main": [
+        [
+          {
+            "node": "TTS Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP": {
+      "main": [
+        [
+          {
+            "node": "SFTP Download",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "FTP Error Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFTP Download": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Social Post Generators",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social Post Generators": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Posts Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Tweet": {
+      "main": [
+        [
+          {
+            "node": "2 Hr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "X Posts Extractor": {
+      "main": [
+        [
+          {
+            "node": "5 mins",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn Posts Extractor": {
+      "main": [
+        [
+          {
+            "node": "X Posts Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Posts": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LinkedIn Posting Error Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image": {
+      "main": [
+        [
+          {
+            "node": "Create Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2 Hr": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slug Extractor1": {
+      "main": [
+        [
+          {
+            "node": "Social Post Generators",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio File Compiler": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TTS Processor": {
+      "main": [
+        [
+          {
+            "node": "Audio File Compiler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "show note",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "show note": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Show Note Delivery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Social Post Generators",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5 mins": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Script Generator": {
+      "main": [
+        [
+          {
+            "node": "SSML Chunker",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "show note",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Back-up Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Show Note Delivery": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Show Note Error Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "fc346b40-8431-403f-9b08-99f5a587383d",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "eTBSy5THEajpHgZn",
+  "tags": []
+}
