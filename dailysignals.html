@@ -244,6 +244,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     /* Hero media */
     .hero-media { position: relative; margin-top: 8px; border-radius: 18px; overflow: hidden; background: none; }
     .hero-media img { width: 100%; height: clamp(220px, 36vw, 420px); object-fit: cover; object-position: 50% 42%; display: block; transform: translate3d(0,0,0) scale(1.06); transform-origin: center top; will-change: transform; }
+    /* Constrain hero media width on mobile for comfortable gutters */
+    #top.wrap .hero-media { max-width: 92vw; margin-left: auto; margin-right: auto; }
     /* Make Daily Signals cards shorter without affecting the hero */
     #ds-screens .ds-parallax-card .hero-media { max-width: 420px; margin: 0 auto; }
     #ds-screens .ds-parallax-card .hero-media img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
@@ -285,6 +287,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       max-height: 320px;
       aspect-ratio: 1 / 1;
       object-fit: cover;
+    }
+    #ds-action .timeline-card p {
+      font-size: 16px;
+      line-height: 1.5;
     }
     #ds-action .timeline-cta-card {
       flex: 0 0 auto;
@@ -345,7 +351,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       #founder .grid { grid-template-columns: 1fr !important; align-items: start !important; justify-items: start; }
       #founder img.founder-photo { margin: 0 0 12px 0; width: min(80vw, 276px) !important; height: min(80vw, 276px) !important; }
       #founder .founder-bio { width: 100%; text-align: left; }
-      .wrap { padding-left: 20px; padding-right: 20px; }
+      .wrap { padding-left: 24px; padding-right: 24px; }
+      #top.wrap { padding-left: 28px; padding-right: 28px; }
+      #top.wrap .hero-media { max-width: 88vw; margin-left: auto; margin-right: auto; }
+      #top.wrap h1,
+      #top.wrap .lead {
+        padding-left: 35px;
+        padding-right: 35px;
+        display: block;
+      }
+      #top.wrap .chip {
+        display: inline-flex;
+        padding: 8px 14px;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
       section { scroll-margin-top: 120px; }
       #founder { scroll-margin-top: 0px; }
     }
