@@ -11,22 +11,26 @@
 
 <!-- Open Graph for Facebook, LinkedIn, etc. -->
 <meta property="og:title" content="OM Digital | Daily Signals Automated Content Desk" />
-<meta property="og:description" content="Daily Signals is an automated market content desk that runs behind the scenes, swiftly turning credible market intelligence across any asset class into ready-to-send podcast shows, social posts, newsletters, etc., in your own brand and voice." />
+<meta property="og:description" content="Daily Signals is a white-label automated market content desk that runs behind the scenes, swiftly turning credible market intelligence across any asset class into ready-to-send podcast shows, social posts, newsletters, etc., in your own brand and voice." />
 <meta property="og:url" content="https://omdigital.agency/dailysignals.html" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://omdigital.agency/images/ds-hero-image.png" />
 <meta property="og:image:alt" content="Daily Signals Hero Image" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<link rel="canonical" href="https://omdigital.agency/dailysignals.html" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="OM Digital | Daily Signals Automated Content Desk"" />
-<meta name="twitter:description" content="Daily Signals is an automated market content desk that runs behind the scenes, swiftly turning credible market intelligence across any asset class into ready-to-send podcast shows, social posts, newsletters, etc., in your own brand and voice." />
+<meta name="twitter:title" content="OM Digital | Daily Signals Automated Content Desk" />
+<meta name="twitter:description" content="Daily Signals is a white-label automated market content desk that runs behind the scenes, swiftly turning credible market intelligence across any asset class into ready-to-send podcast shows, social posts, newsletters, etc., in your own brand and voice." />
 <meta name="twitter:image" content="https://omdigital.agency/images/ds-hero-image.png" />
 
 <!-- ✅ Basic SEO -->
 <title>OM Digital | Daily Signals Automated Content Desk</title>
-<meta name="description" content="OM Digital builds AI-powered marketing and content automation systems for fintech, crypto, and SaaS teams. Automate workflows, reduce manual work, and scale smarter with end-to-end growth operations design.">
-<meta name="keywords" content="marketing automation, AI workflow, fintech marketing, crypto marketing, SaaS growth, automation systems, no-code automation, AI content, fintech CRM, n8n, Zapier, marketing operations, workflow design, marketing technology, startup growth, lead automation">
+<meta name="description" content="Daily Signals is a white-label automated market content desk that runs behind the scenes, swiftly turning credible market intelligence across any asset class into ready-to-send podcast shows, social posts, newsletters, etc., in your own brand and voice.">
+<meta name="keywords" content="whitelabel, white label, marketing automation, AI workflow, fintech marketing, crypto marketing, SaaS growth, automation systems, no-code automation, AI content, fintech CRM, n8n, Zapier, marketing operations, workflow design, marketing technology, startup growth, lead automation">
 <meta name="robots" content="index, follow">
 
 <html lang="en">
@@ -118,6 +122,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .hero p.lead { font-size: clamp(17px, 2.2vw, 22px); color: var(--muted); max-width: none; margin: 8px 0 10px; }
     .hero .meta { color: var(--muted); font-size: 14px; margin-top: 16px; }
     .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--hairline); color: var(--muted); font-size: 12px; letter-spacing: .2px; background: #fff; }
+    /* Carousel controls visible on all viewports */
+    .mobile-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px auto 0;
+      position: static;
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .mobile-carousel-controls .dots { display: flex; align-items: center; gap: 8px; }
+    .mobile-carousel-controls .dot { width: 8px; height: 8px; border-radius: 999px; background: #d2d2d7; opacity: 0.5; transition: opacity .2s ease, transform .2s ease; }
+    .mobile-carousel-controls .dot.active { opacity: 1; transform: scale(1.15); background: #6e6e73; }
+    .mobile-carousel-controls .play-pause { border: 1px solid #d2d2d7; background: #fff; color: #1d1d1f; border-radius: 999px; padding: 8px 12px; font-size: 13px; }
+    .carousel-progress {
+      width: 100%;
+      height: 8px;
+      background: #ededf0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 14px auto 6px;
+    }
+    .carousel-progress .bar {
+      width: 0%;
+      height: 100%;
+      background: #c7c7cc;
+      border-radius: inherit;
+      transition: width .25s ease;
+    }
 
     /* Sections */
     section { padding: 80px 0; scroll-margin-top: 90px; }
@@ -208,11 +243,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .faq-body p {
       margin: 0 0 10px;
     }
-    /* Daily Signals screens: horizontal parallax cards */
+    /* Daily Signals screens: simple horizontal carousel */
     #ds-screens .wrap { overflow: visible; position: relative; }
-    #ds-screens .ds-parallax-viewport { position: relative; overflow: hidden; margin-top: 24px; mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, transparent 100%); }
-    #ds-screens .ds-parallax-grid { position: relative; overflow: visible; display: flex; flex-wrap: nowrap; gap: 100px; align-items: flex-start; justify-content: flex-start; will-change: transform; touch-action: none; }
-    #ds-screens .ds-parallax-card { border: none !important; box-shadow: none !important; will-change: transform, opacity; flex: 0 0 auto; margin: 0; padding: 14px 16px 16px; width: auto; max-width: none; }
+    #ds-screens .ds-parallax-viewport {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin-top: 24px;
+      mask-image: none;
+      -webkit-mask-image: none;
+      padding: 0 16px 16px;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 12px;
+    }
+    #ds-screens .ds-parallax-viewport::-webkit-scrollbar { display: none; }
+    #ds-screens .ds-parallax-grid {
+      position: relative;
+      overflow: visible;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      touch-action: pan-x;
+      width: max-content;
+    }
+    #ds-screens .ds-parallax-card {
+      border: none !important;
+      box-shadow: none !important;
+      flex: 0 0 auto;
+      margin: 0;
+      padding: 14px 16px 16px;
+      width: 420px;
+      max-width: 420px;
+      min-width: 320px;
+      scroll-snap-align: center;
+    }
     /* (removed ds-card overrides; White Label inherits default card styles) */
 
     /* Footer */
@@ -248,27 +316,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     #top.wrap .hero-media { max-width: 92vw; margin-left: auto; margin-right: auto; }
     /* Make Daily Signals cards shorter without affecting the hero */
     #ds-screens .ds-parallax-card .hero-media { max-width: 420px; margin: 0 auto; }
-    #ds-screens .ds-parallax-card .hero-media img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+    #ds-screens .ds-parallax-card .hero-media img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+    }
     #ds-screens .ds-parallax-card h3,
     #ds-screens .ds-parallax-card p { max-width: 420px; margin-left: auto; margin-right: auto; text-align: left; }
 
     /* Pipeline timeline: horizontal parallax right-to-left */
     #ds-action .timeline-viewport {
       position: relative;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       margin-top: 24px;
-      padding: 0 28px;
-      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, transparent 100%);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, transparent 100%);
+      padding: 0 16px 16px;
+      mask-image: none;
+      -webkit-mask-image: none;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 12px;
     }
+    #ds-action .timeline-viewport::-webkit-scrollbar { display: none; }
     #ds-action .timeline-track {
       position: relative;
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row;
       flex-wrap: nowrap;
-      gap: 100px;
+      gap: 24px;
       align-items: stretch;
-      will-change: transform;
+      width: max-content;
+      touch-action: pan-x;
     }
     #ds-action .timeline-card {
       flex: 0 0 auto;
@@ -277,16 +358,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       height: 100%;
       margin: 0;
       padding: 14px 16px 16px;
-      background: var(--section);
+      background: #f5f5f5;
       border: none !important;
       box-shadow: none !important;
+      width: 420px;
+      max-width: 420px;
+      min-width: 320px;
+      scroll-snap-align: center;
     }
+    #ds-action .timeline-card .hero-media { max-width: 420px; margin: 0 auto; }
     #ds-action .timeline-card .hero-media img {
       width: 100%;
       height: auto;
-      max-height: 320px;
+      max-height: 280px;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
+      object-fit: contain;
+    }
+    #ds-action .timeline-card h3,
+    #ds-action .timeline-card p {
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
     }
     #ds-action .timeline-card p {
       font-size: 16px;
@@ -294,19 +387,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     #ds-action .timeline-cta-card {
       flex: 0 0 auto;
-      width: 340px;
-      max-width: 90vw;
+      width: 420px;
+      max-width: 420px;
+      min-width: 320px;
       margin: 0;
-      padding: 18px;
+      padding: 14px 16px 16px;
       border: none;
       border-radius: 12px;
-      background: var(--section);
+      background: #f5f5f5;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       gap: 12px;
+      scroll-snap-align: center;
     }
     #ds-action .timeline-cta-card h3 { margin: 0; }
 
@@ -356,16 +451,158 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       #top.wrap .hero-media { max-width: 88vw; margin-left: auto; margin-right: auto; }
       #top.wrap h1,
       #top.wrap .lead {
-        padding-left: 35px;
-        padding-right: 35px;
+        padding-left: 24px;
+        padding-right: 24px;
         display: block;
       }
       #top.wrap .chip {
         display: inline-flex;
         padding: 8px 14px;
-        margin-left: 16px;
-        margin-right: 16px;
+        margin-left: 24px;
+        margin-right: 24px;
       }
+      /* Mobile: swipeable multi-format without changing desktop sizing */
+      #ds-screens .ds-parallax-viewport {
+        overflow-x: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding: 0 12px 20px;
+        position: relative;
+      }
+      #ds-screens .ds-parallax-grid {
+        gap: 8px;
+        width: max-content;
+        touch-action: pan-x;
+      }
+      #ds-screens { height: auto !important; }
+      #ds-screens .wrap { position: static !important; min-height: auto !important; overflow: visible !important; }
+      #ds-screens .ds-parallax-viewport {
+        overflow-x: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding: 0 12px 20px;
+        position: relative;
+        overscroll-behavior-x: contain;
+      }
+      #ds-screens .ds-parallax-grid {
+        gap: 8px;
+        width: max-content;
+        touch-action: pan-x;
+      }
+      #ds-screens .ds-parallax-card {
+        flex: 0 0 auto;
+        width: calc(100vw - 36px);
+        min-width: calc(100vw - 36px);
+        max-width: calc(100vw - 36px);
+        overflow: visible;
+      }
+      #ds-screens .ds-parallax-card h3,
+      #ds-screens .ds-parallax-card p {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+      }
+      #ds-screens .mobile-carousel-controls,
+      #ds-action .mobile-carousel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      #ds-screens .mobile-carousel-controls .dots,
+      #ds-action .mobile-carousel-controls .dots {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #ds-screens .mobile-carousel-controls .dot,
+      #ds-action .mobile-carousel-controls .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #d2d2d7;
+        opacity: 0.5;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      #ds-screens .mobile-carousel-controls .dot.active,
+      #ds-action .mobile-carousel-controls .dot.active {
+        opacity: 1;
+        transform: scale(1.15);
+        background: #6e6e73;
+      }
+      #ds-screens .mobile-carousel-controls .play-pause,
+      #ds-action .mobile-carousel-controls .play-pause {
+        border: 1px solid #d2d2d7;
+        background: #fff;
+        color: #1d1d1f;
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      #ds-screens { height: auto !important; }
+      #ds-screens .wrap { position: static !important; min-height: auto !important; overflow: visible !important; }
+      #ds-screens .ds-parallax-viewport {
+        padding: 0;
+        overflow-x: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        position: relative;
+        overscroll-behavior-x: contain;
+      }
+      #ds-screens .ds-parallax-grid { gap: 8px; width: max-content; touch-action: pan-x; }
+      #ds-screens .ds-parallax-card {
+        flex: 0 0 auto;
+        width: calc(100vw - 48px);
+        min-width: calc(100vw - 48px);
+        max-width: calc(100vw - 48px);
+        box-sizing: border-box;
+        padding: 16px 16px 22px;
+      }
+      #ds-screens .ds-parallax-card .hero-media { max-width: 100%; margin: 0; }
+      #ds-screens .ds-parallax-card .hero-media img { max-height: 200px; display: block; width: 100%; }
+      /* Mobile: swipeable pipeline without changing desktop sizing */
+      #ds-action { height: auto !important; }
+      #ds-action .wrap { position: static !important; min-height: auto !important; overflow: visible !important; }
+      #ds-action .timeline-viewport {
+        overflow-x: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding: 0;
+        position: relative;
+        overscroll-behavior-x: contain;
+      }
+      #ds-action .timeline-track {
+        gap: 8px;
+        width: max-content;
+        touch-action: pan-x;
+        flex-direction: row;
+      }
+      #ds-action .timeline-card,
+      #ds-action .timeline-cta-card {
+        flex: 0 0 auto;
+        width: calc(100vw - 48px);
+        min-width: calc(100vw - 48px);
+        max-width: calc(100vw - 48px);
+        overflow: visible;
+        padding: 16px 18px 22px;
+      }
+      #ds-action .timeline-card .hero-media,
+      #ds-action .timeline-cta-card .hero-media { max-width: 100%; margin: 0; }
+      #ds-action .timeline-card h3,
+      #ds-action .timeline-card p,
+      #ds-action .timeline-cta-card h3,
+      #ds-action .timeline-cta-card p {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
+      }
+      #ds-action .timeline-card .hero-media img { max-height: 200px; display: block; width: 100%; }
       section { scroll-margin-top: 120px; }
       #founder { scroll-margin-top: 0px; }
     }
@@ -432,15 +669,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <!-- <p class="meta fade-in fade-4">London‑based · Global reach</p> -->
     </header>
 
-    <section id="ds-screens">
-      <div class="wrap">
-        <h2>Multi-format, multi-channel outputs in minutes</h2>
-        <p class="muted" style="max-width: 640px;">
-          Daily Signals turns trusted market intelligence into newsletters, articles, social posts, and full podcast shows within minutes.
-        </p>
+  <section id="ds-screens">
+    <div class="wrap">
+      <h2>Multi-format, multi-channel outputs in minutes</h2>
+      <p class="muted" style="max-width: 640px;">
+        Daily Signals turns trusted market intelligence into newsletters, articles, social posts, and full podcast shows within minutes.
+      </p>
 
-        <div class="ds-parallax-viewport">
-          <div class="ds-parallax-grid">
+      <div class="ds-parallax-viewport">
+        <div class="ds-parallax-grid">
           <!-- 1) Podcast & audio briefs -->
           <article class="card ds-parallax-card reveal reveal-fast" style="--delay: 0ms;">
             <div class="hero-media" style="margin-top: 0; border-radius: 10px; overflow: hidden;">
@@ -507,7 +744,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </article>
         </div>
       </div>
-    </section>
+
+      <div class="carousel-progress" data-carousel="ds-screens">
+        <div class="bar"></div>
+      </div>
+      <div class="mobile-carousel-controls" data-carousel="ds-screens">
+        <button type="button" class="play-pause" aria-label="Play/Pause carousel">Pause</button>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
 
     <!-- SECTION 3: Pipeline -->
     <section id="ds-action">
@@ -601,6 +847,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <a class="pill" href="https://calendly.com/omniwaysdigital/30min" target="_blank" rel="noopener">Book a walkthrough</a>
             </article>
           </div>
+        </div>
+
+        <div class="carousel-progress" data-carousel="ds-action">
+          <div class="bar"></div>
+        </div>
+        <!-- Carousel controls (all viewports) -->
+        <div class="mobile-carousel-controls" data-carousel="ds-action">
+          <button type="button" class="play-pause" aria-label="Play/Pause carousel">Pause</button>
+          <div class="dots"></div>
         </div>
 
       </div>
@@ -825,8 +1080,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
       }
 
-      // Daily Signals screens: sticky horizontal scroll (Markets-style)
-      if (!reduce) {
+      const isMobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+
+      // Daily Signals screens: sticky horizontal scroll (disabled)
+      if (false) {
         const ds = document.querySelector('#ds-screens');
         const track = ds ? ds.querySelector('.ds-parallax-grid') : null;
         const wrap = ds ? ds.querySelector('.wrap') : null;
@@ -835,6 +1092,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           const totalCards = cards.length;
           const tailPx = 35; // extra lateral travel at the end
           const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+          const isMobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
           const getWidth = () => {
             const w = wrap.clientWidth || window.innerWidth || 360;
             return clamp(w * 0.55, 260, 380);
@@ -889,8 +1147,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
       }
 
-      // Pipeline timeline: sticky horizontal scroll, right-to-left order
-      if (!reduce) {
+      // Pipeline timeline: sticky horizontal scroll (disabled)
+      if (false) {
         const section = document.querySelector('#ds-action');
         const viewport = section ? section.querySelector('.timeline-viewport') : null;
         const track = section ? section.querySelector('.timeline-track') : null;
@@ -932,12 +1190,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               card.style.maxWidth = `${width}px`;
             });
 
-            wrap.style.position = 'sticky';
-            wrap.style.top = '0';
-            wrap.style.minHeight = `${vh}px`;
-            wrap.style.overflow = 'visible';
-            // Extra height so scroll continues until CTA card centers
-            section.style.height = `${vh * (cards.length + 2)}px`;
+            if (!isMobile) {
+              wrap.style.position = 'sticky';
+              wrap.style.top = '0';
+              wrap.style.minHeight = `${vh}px`;
+              wrap.style.overflow = 'visible';
+              section.style.height = `${vh * (cards.length + 2)}px`;
+            } else {
+              wrap.style.position = 'static';
+              wrap.style.top = '';
+              wrap.style.minHeight = '';
+              wrap.style.overflow = 'visible';
+              section.style.height = 'auto';
+            }
 
             baseOffset = centerOffset - totalWidth + width;
             track.style.transform = `translate3d(${baseOffset.toFixed(2)}px,0,0)`;
@@ -1058,6 +1323,105 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             io.observe(section);
           }
         }
+      }
+
+      // Autoplay swipe with controls for ds-screens and ds-action (all viewports)
+      if (!reduce) {
+        const initMobileCarousel = (sectionId, viewportSel, cardSel, direction = 'ltr') => {
+          const section = document.querySelector(`#${sectionId}`);
+          const viewport = section ? section.querySelector(viewportSel) : null;
+          const cards = viewport ? Array.from(viewport.querySelectorAll(cardSel)) : [];
+          const controls = document.querySelector(`.mobile-carousel-controls[data-carousel="${sectionId}"]`);
+          const progressBar = document.querySelector(`.carousel-progress[data-carousel="${sectionId}"] .bar`);
+          const track = viewport ? viewport.firstElementChild : null;
+          if (!section || !viewport || !cards.length || !controls || !track) return;
+          const dotsWrap = controls.querySelector('.dots');
+          const btn = controls.querySelector('.play-pause');
+          if (!dotsWrap || !btn) return;
+
+          dotsWrap.innerHTML = '';
+          cards.forEach((_, i) => {
+            const d = document.createElement('span');
+            d.className = 'dot';
+            d.dataset.index = String(i);
+            dotsWrap.appendChild(d);
+          });
+
+          let index = direction === 'rtl' ? cards.length - 1 : 0;
+          let playing = true;
+          let timer = null;
+          const interval = 4000;
+
+          const applyPadding = () => {
+            const first = cards[0];
+            if (!first) return 0;
+            const vw = viewport.clientWidth || 0;
+            const pad = Math.max(0, (vw - first.offsetWidth) / 2);
+            track.style.paddingLeft = `${pad}px`;
+            track.style.paddingRight = `${pad}px`;
+            return pad;
+          };
+
+          const setActive = () => {
+            dotsWrap.querySelectorAll('.dot').forEach((dot, i) => {
+              dot.classList.toggle('active', i === index);
+            });
+            if (progressBar) {
+              const pct = cards.length > 1 ? (index / (cards.length - 1)) * 100 : 100;
+              progressBar.style.width = `${pct}%`;
+            }
+            const card = cards[index];
+            const pad = applyPadding();
+            const desired = card.offsetLeft - pad;
+            const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+            const target = Math.max(0, Math.min(desired, max));
+            viewport.scrollTo({ left: target, behavior: 'smooth' });
+          };
+
+          const schedule = () => {
+            if (!playing) return;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+              index = direction === 'rtl'
+                ? (index - 1 + cards.length) % cards.length
+                : (index + 1) % cards.length;
+              setActive();
+              schedule();
+            }, interval);
+          };
+
+          dotsWrap.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!(target instanceof HTMLElement) || !target.classList.contains('dot')) return;
+            const i = Number(target.dataset.index);
+            if (Number.isFinite(i)) {
+              index = i;
+              setActive();
+              schedule();
+            }
+          });
+
+          btn.addEventListener('click', () => {
+            playing = !playing;
+            btn.textContent = playing ? 'Pause' : 'Play';
+            if (playing) {
+              schedule();
+            } else {
+              clearTimeout(timer);
+            }
+          });
+
+          setActive();
+          schedule();
+
+          window.addEventListener('resize', () => {
+            applyPadding();
+            setActive();
+          });
+        };
+
+        initMobileCarousel('ds-screens', '.ds-parallax-viewport', '.ds-parallax-card', 'ltr');
+        initMobileCarousel('ds-action', '.timeline-viewport', '.timeline-card, .timeline-cta-card', 'ltr');
       }
 
       // What we do: horizontal parallax from right to left for two cards
