@@ -75,7 +75,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .nav-menu { display: none; }
     .nav ul { list-style: none; display: flex; gap: 16px; margin: 0; padding: 0; }
     .nav a { color: var(--fg); position: relative; }
-    .nav a[href="#campaign"] { font-weight: 700; }
     /* Minimal hover indicator: thin hairline that scales in */
     .nav a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 100%; background: currentColor; opacity: .35; transform: scaleX(0); transform-origin: left; transition: transform .18s ease; }
     .nav a:hover { text-decoration: none; }
@@ -149,21 +148,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .founder-name { margin: 0 0 4px; font-weight: 600; }
     /* Founder subtle parallax readiness */
     #founder h2, #founder img.founder-photo, #founder .founder-bio { will-change: transform; }
-    /* Campaign — tighten layout + colorful background */
-    #campaign { padding-top: 40px; padding-bottom: 56px; background: linear-gradient(135deg, #5b8cff, #9b5cff 35%, #ff6ec7 70%, #ffd166); color: #fff; }
-    #campaign .wrap { max-width: 760px; text-align: center; }
-    #campaign h1 {
-      text-align: center;
-      font-size: clamp(40px, 6vw, 64px);
-      line-height: 1.06;
-      margin: 12px 0 24px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    #campaign p { margin: 8px 0 0; }
-    #campaign a { color: #fff; }
-    #campaign .pill { background: rgba(255,255,255,.25); color: #fff; }
-    #campaign .pill:hover { background: rgba(255,255,255,.35); }
     
     /* Founder on white background */
     #founder { background: #fff; }
@@ -249,7 +233,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="nav-menu" id="nav-menu">
         <ul>
           <li><a href="#what">Services</a></li>
-          <li><a href="#campaign">Year‑end Offer</a></li>
+          <li><a href="https://omdigital.agency/dailysignals"><strong>White Label</strong></a></li>
           <li><a href="#founder">About</a></li>
         </ul>
       </div>
@@ -312,15 +296,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </section>
 
-  <!-- Campaign -->
-  <section id="campaign">
-    <div class="wrap">
-      <h1>Year‑End Free Projects</h1>
-      <p>We’re opening three <strong>complimentary project slots</strong> for ambitious startups looking to automate before the new year. Selected teams will receive a fully built workflow or content automation pilot <strong>at no cost.</strong></p>
-      <p>If you’re a small business or startup aiming to scale your operations by automating key processes, OM Digital is here to collaborate.</p>
-      <p><a class="pill" href="https://omdigital.agency/free-campaign.html">Learn more</a></p>
-    </div>
-  </section>
 
   <!-- Founder -->
   <section id="founder">
@@ -464,54 +439,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
       }
 
-      // Year-End Free Projects: vertical slide/opacity parallax
-      if (!reduce) {
-        const campaign = document.querySelector('#campaign');
-        if (campaign) {
-          const parts = [campaign.querySelector('h1'), ...campaign.querySelectorAll('p')].filter(Boolean);
-          const offsets = parts.map((_, i) => 36 + i * 14);
-          parts.forEach((el, i) => {
-            el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
-            el.style.opacity = '0';
-          });
-
-          let rafId;
-          let p = 0, ps = 0;
-          const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-          const compute = () => {
-            const rect = campaign.getBoundingClientRect();
-            const vh = window.innerHeight || 1;
-            const dist = Math.abs(rect.top - vh * 0.5);
-            const radius = vh * 0.6;
-            p = clamp(1 - dist / radius, 0, 1);
-          };
-          const apply = () => {
-            const target = 1 - Math.pow(1 - Math.min(1, p * 1.45), 3);
-            ps += (target - ps) * 0.25;
-            parts.forEach((el, i) => {
-              const y = (1 - ps) * offsets[i];
-              el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
-              el.style.opacity = ps.toFixed(3);
-            });
-          };
-          const tick = () => { compute(); apply(); rafId = requestAnimationFrame(tick); };
-          if ('IntersectionObserver' in window) {
-            const io = new IntersectionObserver(entries => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  if (!rafId) rafId = requestAnimationFrame(tick);
-                } else if (rafId) {
-                  cancelAnimationFrame(rafId);
-                  rafId = null;
-                }
-              });
-            }, { threshold: 0 });
-            io.observe(campaign);
-          } else {
-            rafId = requestAnimationFrame(tick);
-          }
-        }
-      }
 
       // Removed motion for End-to-end Solutions section per request
 
