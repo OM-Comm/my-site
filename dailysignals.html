@@ -40,7 +40,8 @@
         "provider": {
           "@type": "Organization",
           "@id": "https://omdigital.agency/#org",
-          "name": "OM Digital"
+          "name": "OM Digital",
+          "url": "https://omdigital.agency"
         },
         "offers": {
           "@type": "Offer",
@@ -316,33 +317,16 @@
       margin-top: 18px;
     }
     .faq-item {
-      padding: 14px 0;
+      padding: 18px 0;
       border-bottom: 1px solid var(--hairline);
     }
-    .faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 0;
-    }
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-    .faq-item summary::after {
-      content: '+';
-      font-weight: 400;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-    .faq-item[open] summary::after {
-      content: '−';
+    .faq-question {
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: var(--fg);
+      font-size: 17px;
     }
     .faq-body {
-      margin-top: 8px;
       color: var(--muted);
       max-width: 720px;
     }
@@ -1033,75 +1017,75 @@
       <div class="wrap">
         <h2>FAQ</h2>
         <div class="faq">
-          <details class="faq-item" open>
-            <summary><strong>1. What does Daily Signals deliver?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">1. What does Daily Signals deliver?</p>
             <div class="faq-body">
               <p>Daily Signals produces and publishes branded market content across newsletters, social posts, blog articles, and podcast shows, all on the cadence you choose.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>2. Is this a software tool or a managed service?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">2. Is this a software tool or a managed service?</p>
             <div class="faq-body">
               <p>It is a managed service. OM Digital builds, operates, and maintains the full production pipeline for you.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>3. How much input is required from our side?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">3. How much input is required from our side?</p>
             <div class="faq-body">
-              <p>Your involvement can be minimal. Some clients only join a monthly review call while the pipeline runs at about ninety five percent automation.</p>
+              <p>Your involvement can be minimal. Some clients only join a monthly review call while the pipeline runs at about ninety-five percent automation.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>4. Do we need our own writers or editors?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">4. Do we need our own writers or editors?</p>
             <div class="faq-body">
-              <p>No. Drafts are fully produced. If you prefer human written versions, OM Digital can arrange that.</p>
+              <p>No. Drafts are fully produced. If you prefer human-written versions, OM Digital can arrange that.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>5. How do you prevent inaccurate or hallucinated content?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">5. How do you prevent inaccurate or hallucinated content?</p>
             <div class="faq-body">
-              <p>The system uses a strict, battle tested anti hallucination workflow refined since March 2025 and relies only on your approved sources.</p>
+              <p>The system uses a strict, battle-tested anti-hallucination workflow refined since March 2025 and relies only on your approved sources.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>6. Which sources can Daily Signals use?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">6. Which sources can Daily Signals use?</p>
             <div class="faq-body">
-              <p>Any open source feed, any paid vendor you already subscribe to, and your own proprietary research or internal notes.</p>
+              <p>Any open-source feed, any paid vendor you already subscribe to, and your own proprietary research or internal notes.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>7. Can the system publish automatically?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">7. Can the system publish automatically?</p>
             <div class="faq-body">
-              <p>Yes. You may choose automatic publishing, draft only delivery, or a mix. Time based and event based triggers are both supported.</p>
+              <p>Yes. You may choose automatic publishing, draft-only delivery, or a mix. Time-based and event-based triggers are both supported.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>8. Can content be customised for languages, brands, or asset specific versions?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">8. Can content be customised for languages, brands, or asset-specific versions?</p>
             <div class="faq-body">
-              <p>Yes. Multiple languages, multi brand setups, and asset specific versions such as NVDA or TSLA are supported.</p>
+              <p>Yes. Multiple languages, multi-brand setups, and asset-specific versions such as NVDA or TSLA are supported.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>9. How is performance tracked and reported?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">9. How is performance tracked and reported?</p>
             <div class="faq-body">
               <p>All distributed content is tracked with agreed KPIs such as opens, clicks, engagement, completion, and delivery results. Weekly summaries and monthly reports are included.</p>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary><strong>10. How long does onboarding take, and when do we start receiving content?</strong></summary>
+          <div class="faq-item">
+            <p class="faq-question">10. How long does onboarding take, and when do we start receiving content?</p>
             <div class="faq-body">
               <p>Onboarding takes two to three weeks depending on scope. You begin receiving outputs about one week after configuration is complete.</p>
             </div>
-          </details>
+          </div>
         </div>
         <div class="process-cta">
           <a class="pill" href="https://calendly.com/om_digital" target="_blank" rel="noopener">
