@@ -149,40 +149,23 @@
     #founder { background: #fff; }
     /* (removed ds-card overrides; White Label inherits default card styles) */
 
-    /* FAQ accordion */
+    /* FAQ — static visible Q&A */
     #faq { background: var(--section); }
     .faq {
       border-top: 1px solid var(--hairline);
       margin-top: 18px;
     }
     .faq-item {
-      padding: 14px 0;
+      padding: 18px 0;
       border-bottom: 1px solid var(--hairline);
     }
-    .faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 0;
-    }
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-    .faq-item summary::after {
-      content: '+';
-      font-weight: 400;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-    .faq-item[open] summary::after {
-      content: '−';
+    .faq-question {
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: var(--fg);
+      font-size: 17px;
     }
     .faq-body {
-      margin-top: 8px;
       color: var(--muted);
       max-width: 720px;
     }
@@ -446,33 +429,33 @@
       <h2>FAQs</h2>
       <div class="faq">
 
-        <details class="faq-item" open>
-          <summary><strong>What is AI marketing automation?</strong></summary>
+        <div class="faq-item">
+          <p class="faq-question">What is AI marketing automation?</p>
           <div class="faq-body">
             <p>AI marketing automation uses artificial intelligence to design, trigger, and optimize marketing workflows, covering everything from content generation to lead nurture, without manual effort. Every output is market-relevant and stays consistent with your brand narrative. It lets lean fintech and crypto teams scale their marketing output without growing headcount.</p>
           </div>
-        </details>
+        </div>
 
-        <details class="faq-item">
-          <summary><strong>What does OM Digital do?</strong></summary>
+        <div class="faq-item">
+          <p class="faq-question">What does OM Digital do?</p>
           <div class="faq-body">
             <p>OM Digital builds bespoke AI marketing automation systems for fintech and crypto startups. We also offer Daily Signals, a white-label automated content desk for trading platforms that turns real-time market intelligence into branded, on-narrative social posts, newsletters, and podcast scripts at key price action events.</p>
           </div>
-        </details>
+        </div>
 
-        <details class="faq-item">
-          <summary><strong>What is a white-label marketing product?</strong></summary>
+        <div class="faq-item">
+          <p class="faq-question">What is a white-label marketing product?</p>
           <div class="faq-body">
             <p>A white-label marketing product is a ready-built system that a business rebrands and delivers to its own customers under its own identity. OM Digital's Daily Signals lets trading platforms automatically publish market-relevant content that is consistent with their brand narrative, with no in-house editorial work required.</p>
           </div>
-        </details>
+        </div>
 
-        <details class="faq-item">
-          <summary><strong>How long does it take to get started?</strong></summary>
+        <div class="faq-item">
+          <p class="faq-question">How long does it take to get started?</p>
           <div class="faq-body">
             <p>A bespoke automation workflow typically takes 2 to 6 weeks to scope and deploy, depending on your existing stack and the complexity of the process. OM Digital handles the full build, including workflow design, integration, testing, and ongoing maintenance, so your team stays focused on growth.</p>
           </div>
-        </details>
+        </div>
 
       </div>
     </div>
