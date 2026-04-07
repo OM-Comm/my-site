@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQ6MYH6CL7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JQ6MYH6CL7');
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KMB8G38M');</script>
+  <!-- End Google Tag Manager -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="Case Study: Institutional Research That Earns Its Engagement | OM Digital" />
+  <meta property="og:description" content="How OM Digital helped a Web3 liquidity firm achieve consistent, meaningful engagement from high-intent clients by building an automated content intelligence system around their research output." />
+  <meta property="og:url" content="https://omdigital.agency/case-study-web3-liquidity.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://omdigital.agency/images/case-study-web3-liquidity.png" />
+  <meta property="og:image:alt" content="OM Digital Case Study" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Case Study: Institutional Research That Earns Its Engagement | OM Digital" />
+  <meta name="twitter:description" content="How OM Digital helped a Web3 liquidity firm achieve consistent, meaningful engagement from high-intent clients." />
+  <meta name="twitter:image" content="https://omdigital.agency/images/case-study-web3-liquidity.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Case Study: Institutional Research That Earns Its Engagement | OM Digital</title>
+  <meta name="description" content="How OM Digital built a content intelligence system for a Web3 liquidity firm, turning a high-cadence research operation into consistent engagement across institutional distribution channels." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://omdigital.agency/case-study-web3-liquidity.html" />
+  <link rel="icon" type="image/png" href="images/om-logo-black.png" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --section: #f5f5f7;
+      --fg: #1d1d1f;
+      --muted: #636366;
+      --hairline: #d2d2d7;
+      --link: #06c;
+      --card: #ffffff;
+      --maxw: 980px;
+      --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); background: rgba(255,255,255,.8); transition: transform .28s ease; will-change: transform; }
+    .nav.nav--hidden { transform: translateY(-100%); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg); }
+    .brand img { width: 40px; height: 40px; border-radius: 6px; }
+    .nav-menu { display: none; }
+    .nav ul { list-style: none; display: flex; gap: 16px; margin: 0; padding: 0; }
+    .nav a { color: var(--fg); position: relative; }
+    .nav a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 100%; background: currentColor; opacity: .35; transform: scaleX(0); transform-origin: left; transition: transform .18s ease; }
+    .nav a:hover { text-decoration: none; }
+    .nav a:hover::after { transform: scaleX(1); }
+    .brand::after { display: none; }
+    .brand { transition: transform .2s ease; text-decoration: none !important; }
+    .brand:hover, .brand:focus-visible { transform: scale(1.05); text-decoration: none; }
+    .nav.nav--open .nav-menu { display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; justify-content: center; align-items: center; background: rgba(255,255,255,.96); z-index: 1000; }
+    .nav.nav--open .nav-menu ul { flex-direction: column; gap: 24px; font-size: 22px; text-align: center; }
+    .nav-toggle { display: none; appearance: none; border: 0; background: transparent; padding: 6px; cursor: pointer; }
+    .nav-toggle .bar { display: block; width: 22px; height: 2px; background: currentColor; margin: 5px 0; border-radius: 1px; }
+    .nav-close { display: none; position: absolute; top: 24px; right: 24px; appearance: none; border: 0; background: transparent; font-size: 22px; cursor: pointer; color: var(--fg); padding: 8px; line-height: 1; }
+    .nav.nav--open .nav-close { display: block; }
+    body.no-scroll { overflow: hidden; }
+
+    /* Buttons */
+    .cta-btn { display: inline-block; padding: 14px 28px; border-radius: 9999px; background: var(--fg); color: #fff; font-weight: 600; font-size: 16px; text-decoration: none; letter-spacing: -.01em; transition: transform .18s ease, background .18s ease; }
+    .cta-btn:hover { background: #3a3a3c; text-decoration: none; transform: translateY(-2px); }
+    .pill-light { display: inline-block; padding: 14px 30px; border-radius: 9999px; background: #fff; color: var(--fg); font-weight: 600; font-size: 16px; text-decoration: none; letter-spacing: -.01em; transition: transform .18s ease, background .18s ease; }
+    .pill-light:hover { background: #f0f0f0; text-decoration: none; transform: translateY(-2px); }
+
+    /* Chips */
+    .chip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--hairline); color: var(--muted); font-size: 12px; letter-spacing: .3px; background: #fff; font-weight: 500; }
+
+    /* Hero */
+    .hero { padding: 56px 0 64px; background: var(--bg); }
+    .hero-eyebrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .hero-media { margin-bottom: 40px; border-radius: 18px; overflow: hidden; background: none; }
+    .hero-media img { width: 100%; height: clamp(200px, 32vw, 400px); object-fit: cover; object-position: 50% 42%; display: block; transform: scale(1.04); transform-origin: center center; will-change: transform; }
+    .hero h1 { font-size: clamp(32px, 4.8vw, 54px); line-height: 1.09; margin: 0 0 16px; font-weight: 650; letter-spacing: -0.022em; max-width: 800px; }
+    .hero p.lead { font-size: clamp(16px, 1.9vw, 19px); color: var(--muted); max-width: 620px; margin: 0 0 28px; line-height: 1.6; }
+
+    /* Section scaffolding — explicit backgrounds, no nth-of-type */
+    section { padding: 72px 0; scroll-margin-top: 90px; }
+    .bg-white { background: var(--bg); }
+    .bg-gray { background: var(--section); }
+    h2 { font-size: clamp(22px, 2.4vw, 30px); margin: 0 0 20px; letter-spacing: -0.012em; font-weight: 600; }
+    h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+    p { color: var(--fg); margin: 0 0 14px; }
+    p:last-child { margin-bottom: 0; }
+    .muted { color: var(--muted); }
+
+    /* Section label */
+    .section-label { font-size: 11px; letter-spacing: .7px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+
+    /* Prose */
+    .prose { max-width: 680px; }
+    .prose p { font-size: 17px; line-height: 1.68; color: var(--fg); margin-bottom: 16px; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* Image placeholder */
+    .img-placeholder { background: var(--section); border: 1px dashed var(--hairline); border-radius: var(--radius); height: 260px; display: flex; align-items: center; justify-content: center; margin-top: 40px; color: var(--muted); font-size: 13px; letter-spacing: .2px; }
+    .bg-gray .img-placeholder { background: #ebebed; border-color: #c8c8cd; }
+
+    /* Steps */
+    .steps { counter-reset: steps; margin-top: 36px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 0 20px; padding: 24px 0; border-bottom: 1px solid var(--hairline); align-items: start; }
+    .step:first-child { border-top: 1px solid var(--hairline); }
+    .step-num { font-size: 13px; font-weight: 700; color: var(--muted); padding-top: 3px; letter-spacing: .2px; }
+    .step-body h3 { margin: 0 0 6px; font-size: 17px; }
+    .step-body p { color: var(--muted); font-size: 15px; margin: 0; line-height: 1.62; }
+
+    /* Outcomes grid */
+    .outcomes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
+    .outcome { background: var(--card); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 20px 22px; }
+    .outcome h3 { font-size: 16px; margin-bottom: 6px; }
+    .outcome p { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+    /* CTA section */
+    .cta-section { background: var(--fg); color: #fff; padding: 88px 0; text-align: center; }
+    .cta-section h2 { color: #fff; font-size: clamp(22px, 2.8vw, 34px); margin-bottom: 14px; letter-spacing: -0.015em; }
+    .cta-section p { color: rgba(255,255,255,.7); font-size: 17px; max-width: 500px; margin: 0 auto 32px; line-height: 1.65; }
+
+    /* Footer */
+    footer { padding: 56px 0; color: var(--muted); font-size: 14px; background: var(--section); }
+
+    /* Accessibility */
+    :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 4px; }
+
+    /* Motion */
+    .fade-in { opacity: 0; transform: translateY(10px); animation: fadeIn .7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .fade-2 { animation-delay: .08s; }
+    .fade-3 { animation-delay: .16s; }
+    .fade-4 { animation-delay: .24s; }
+    .fade-5 { animation-delay: .32s; }
+    @keyframes fadeIn { to { opacity: 1; transform: none; } }
+    .reveal {
+      --reveal-duration: .8s;
+      --reveal-distance: 22px;
+      opacity: 0;
+      transform: translateY(var(--reveal-distance));
+      transition: transform var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1), opacity var(--reveal-duration);
+      transition-delay: var(--delay, 0ms);
+      will-change: transform, opacity;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-media img { transform: none !important; }
+      .nav { transition: none; }
+    }
+
+    @media (max-width: 900px), (orientation: landscape) and (max-height: 500px) {
+      .nav-toggle { display: block; }
+      .nav-menu { display: none; }
+      .wrap { padding-left: 20px; padding-right: 20px; }
+      section { scroll-margin-top: 120px; }
+    }
+    @media (min-width: 901px) {
+      .nav-toggle { display: none !important; }
+      .nav-menu { display: flex !important; position: static; background: none; align-items: center; }
+      .nav-menu ul { flex-direction: row; gap: 16px; font-size: 1rem; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Case Study: Institutional Research That Earns Its Engagement",
+    "description": "How OM Digital built a content intelligence system for a Web3 liquidity firm, turning a high-cadence research operation into consistent engagement across institutional distribution channels.",
+    "author": {
+      "@type": "Organization",
+      "@id": "https://omdigital.agency/#org",
+      "name": "OM Digital",
+      "url": "https://omdigital.agency"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://omdigital.agency/#org",
+      "name": "OM Digital",
+      "url": "https://omdigital.agency"
+    },
+    "url": "https://omdigital.agency/case-study-web3-liquidity.html"
+  }
+  </script>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMB8G38M"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="https://omdigital.agency" class="brand">
+      <img src="images/om-logo-black.png" alt="OM Digital logo" />
+      <span>OM Digital</span>
+    </a>
+    <button class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="nav-menu" id="nav-menu">
+      <button class="nav-close" aria-label="Close menu">✕</button>
+      <ul>
+        <li><a href="https://omdigital.agency/#what">Services</a></li>
+        <li><a href="https://omdigital.agency/dailysignals.html"><strong>White Label</strong></a></li>
+        <li><a href="https://omdigital.agency/case-study-web3-liquidity.html">Case Study</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header id="top" class="hero wrap">
+  <div class="hero-eyebrow fade-in">
+    <span class="chip">Case Study</span>
+    <span class="chip">Web3 Liquidity Firm</span>
+    <span class="chip">Content Automation</span>
+  </div>
+  <div class="hero-media fade-in fade-2">
+    <img
+      src="images/case-study-web3-liquidity.png"
+      alt="AI content intelligence system for institutional Web3 research distribution"
+      fetchpriority="high" />
+  </div>
+  <h1 class="fade-in fade-3">Institutional research that earns the engagement it's built for</h1>
+  <p class="lead fade-in fade-4">A Web3 liquidity firm continuously produced high-value research. We built the system that turns it into consistent, on-brand market commentary across their institutional distribution channels.</p>
+  <div class="fade-in fade-5">
+    <a class="cta-btn" href="https://calendly.com/om_digital" target="_blank" rel="noopener">Book a free call</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- Challenge -->
+  <section id="challenge" class="bg-gray">
+    <div class="wrap">
+      <p class="section-label reveal">The Challenge</p>
+      <h2 class="reveal" style="--delay:60ms;">Research that kept coming. Meaningful engagement that didn't.</h2>
+      <div class="prose reveal" style="--delay:120ms;">
+        <p>The firm's research team operated at a high, consistent cadence, publishing rigorous market analysis and methodology papers for a narrow, highly specific audience. The intellectual output was continuous and credible.</p>
+        <p>What was missing was the production layer between that output and the engagement it was capable of generating. Commentary on live market conditions required time the team didn't have. The research cycle and the engagement cycle were running at different speeds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section id="solution" class="bg-white">
+    <div class="wrap">
+      <p class="section-label reveal">The Solution</p>
+      <h2 class="reveal" style="--delay:60ms;">A system anchored to the firm's research, not the news cycle.</h2>
+      <div class="reveal" style="--delay:120ms; margin: 32px 0 40px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 108" width="100%"
+             role="img" aria-label="System architecture: Firm's research feeds into Content Intelligence, producing approved commentary">
+          <style>
+            .so-icon { fill: none; stroke: #1d1d1f; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+            .so-fill { fill: #1d1d1f; }
+            .so-lbl  { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #1d1d1f; }
+            .so-arr  { fill: none; stroke: #d2d2d7; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+          </style>
+
+          <!-- Station 1 · Firm's Research · cx=130 -->
+          <g transform="translate(130,38)">
+            <!-- 3 stacked docs -->
+            <rect class="so-icon" x="-18" y="-13" width="20" height="26" rx="2"/>
+            <rect class="so-icon" x="-12" y="-16" width="20" height="26" rx="2" style="fill:#ffffff"/>
+            <rect class="so-icon" x="-6"  y="-19" width="20" height="26" rx="2" style="fill:#ffffff"/>
+            <line class="so-icon" x1="-2" y1="-12" x2="10" y2="-12"/>
+            <line class="so-icon" x1="-2" y1="-7"  x2="10" y2="-7"/>
+            <line class="so-icon" x1="-2" y1="-2"  x2="6"  y2="-2"/>
+          </g>
+          <text class="so-lbl" x="130" y="80" text-anchor="middle">Firm's Research</text>
+
+          <!-- Arrow 1 -->
+          <line     class="so-arr" x1="160" y1="38" x2="345" y2="38"/>
+          <polyline class="so-arr" points="338,33 345,38 338,43"/>
+
+          <!-- Station 2 · Content Intelligence · cx=390 -->
+          <g transform="translate(390,38)">
+            <!-- Hexagon -->
+            <path class="so-icon" d="M-26,0 L-13,-22 L13,-22 L26,0 L13,22 L-13,22 Z"/>
+            <!-- Internal nodes & connections -->
+            <line class="so-icon" x1="-8" y1="-4" x2="8" y2="-4"/>
+            <line class="so-icon" x1="-8" y1="-4" x2="0" y2="9"/>
+            <line class="so-icon" x1="8"  y1="-4" x2="0" y2="9"/>
+            <circle class="so-fill" cx="-8" cy="-4" r="2.2"/>
+            <circle class="so-fill" cx="8"  cy="-4" r="2.2"/>
+            <circle class="so-fill" cx="0"  cy="9"  r="2.2"/>
+          </g>
+          <text class="so-lbl" x="390" y="80" text-anchor="middle">Content Intelligence</text>
+
+          <!-- Arrow 2 -->
+          <line     class="so-arr" x1="435" y1="38" x2="615" y2="38"/>
+          <polyline class="so-arr" points="608,33 615,38 608,43"/>
+
+          <!-- Station 3 · Approved Commentary · cx=650 -->
+          <g transform="translate(650,38)">
+            <!-- Document -->
+            <rect class="so-icon" x="-15" y="-18" width="24" height="32" rx="2"/>
+            <line class="so-icon" x1="-10" y1="-10" x2="4" y2="-10"/>
+            <line class="so-icon" x1="-10" y1="-4"  x2="4" y2="-4"/>
+            <line class="so-icon" x1="-10" y1="2"   x2="0" y2="2"/>
+            <!-- Approval badge -->
+            <circle class="so-fill" cx="12" cy="-15" r="8"/>
+            <path d="M8,-15 L11,-12 L16,-18" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <text class="so-lbl" x="650" y="80" text-anchor="middle">Approved Commentary</text>
+        </svg>
+      </div>
+      <div class="prose reveal" style="--delay:180ms;">
+        <p>OM Digital built a content intelligence system that reads the firm's latest published thinking, curates the most relevant market developments against it, and produces commentary that reflects the firm's framing on current conditions.</p>
+        <p>Every output is written in the firm's voice and queued for human approval before it reaches their distribution channels. The firm retains full editorial control. The system handles everything in between.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="bg-gray">
+    <div class="wrap">
+      <p class="section-label reveal">How It Works</p>
+      <h2 class="reveal" style="--delay:60ms;">Four stages, running continuously.</h2>
+      <div class="reveal" style="--delay:100ms; margin-bottom:40px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 108" width="100%"
+             role="img" aria-label="Four-stage pipeline: Narrative Ingestion, Market Curation, Synthesis, Human-in-the-loop">
+          <style>
+            .pi-icon { fill: none; stroke: #1d1d1f; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+            .pi-lbl  { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #1d1d1f; }
+            .pi-arr  { fill: none; stroke: #d2d2d7; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+          </style>
+
+          <!-- Station 1 · Narrative Ingestion · cx=86 -->
+          <g transform="translate(86,38)">
+            <rect class="pi-icon" x="-16" y="-16" width="22" height="28" rx="3"/>
+            <rect class="pi-icon" x="-10" y="-11" width="22" height="28" rx="3" style="fill:#f5f5f7"/>
+            <line class="pi-icon" x1="-5" y1="-2" x2="7"  y2="-2"/>
+            <line class="pi-icon" x1="-5" y1="5"  x2="7"  y2="5"/>
+            <line class="pi-icon" x1="-5" y1="12" x2="2"  y2="12"/>
+          </g>
+          <text class="pi-lbl" x="86"  y="74" text-anchor="middle">Narrative</text>
+          <text class="pi-lbl" x="86"  y="90" text-anchor="middle">Ingestion</text>
+
+          <!-- Arrow 1 -->
+          <line     class="pi-arr" x1="176" y1="38" x2="199" y2="38"/>
+          <polyline class="pi-arr" points="193,33 200,38 193,43"/>
+
+          <!-- Station 2 · Market Curation · cx=289 -->
+          <g transform="translate(289,38)">
+            <path class="pi-icon" d="M-16,-16 L16,-16 L9,0 L9,11 L-9,11 L-9,0 Z"/>
+          </g>
+          <text class="pi-lbl" x="289" y="74" text-anchor="middle">Market</text>
+          <text class="pi-lbl" x="289" y="90" text-anchor="middle">Curation</text>
+
+          <!-- Arrow 2 -->
+          <line     class="pi-arr" x1="379" y1="38" x2="402" y2="38"/>
+          <polyline class="pi-arr" points="396,33 403,38 396,43"/>
+
+          <!-- Station 3 · Synthesis · cx=492 -->
+          <g transform="translate(492,38)">
+            <rect class="pi-icon" x="-13" y="-16" width="26" height="32" rx="3"/>
+            <line class="pi-icon" x1="-13" y1="-7" x2="13"  y2="-7"/>
+            <line class="pi-icon" x1="-8"  y1="1"  x2="8"   y2="1"/>
+            <line class="pi-icon" x1="-8"  y1="9"  x2="3"   y2="9"/>
+          </g>
+          <text class="pi-lbl" x="492" y="82" text-anchor="middle">Synthesis</text>
+
+          <!-- Arrow 3 -->
+          <line     class="pi-arr" x1="582" y1="38" x2="605" y2="38"/>
+          <polyline class="pi-arr" points="599,33 606,38 599,43"/>
+
+          <!-- Station 4 · Human-in-the-loop · cx=695 -->
+          <g transform="translate(695,38)">
+            <circle class="pi-icon" cx="0" cy="0" r="16"/>
+            <path   class="pi-icon" d="M-7,2 L-2,8 L9,-6"/>
+          </g>
+          <text class="pi-lbl" x="695" y="82" text-anchor="middle">Human-in-the-loop</text>
+        </svg>
+      </div>
+      <div class="steps reveal" style="--delay:180ms;">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <h3>Narrative ingestion</h3>
+            <p>The system absorbs the firm's latest published research, theses, brand context, and strategic framing. This becomes the anchor for all downstream output.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <h3>Market curation</h3>
+            <p>Incoming news is scored continuously against an institutional signal filter. What remains is the market activity most directly relevant to the firm's current narrative.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <h3>Weekly synthesis</h3>
+            <p>A structured brief bridges the firm's active research position with current market conditions, establishing the thesis and framing for that week's commentary.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <h3>Distribution-ready output with human approval</h3>
+            <p>Content is drafted in the firm's voice and formatted for their institutional distribution channels. Each piece is reviewed and approved by the team before it goes out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Changed -->
+  <section id="outcomes" class="bg-white">
+    <div class="wrap">
+      <p class="section-label reveal">What Changed</p>
+      <h2 class="reveal" style="--delay:60ms;">Continuous research output. Continuous client engagement.</h2>
+      <div class="prose reveal" style="--delay:100ms;">
+        <p>The firm achieved what the research deserved: consistent, relevant engagement from the clients and counterparties their thinking was written for, without any additional production overhead.</p>
+      </div>
+      <div class="outcomes stagger" data-stagger="80" style="margin-top:32px;">
+        <div class="outcome">
+          <h3>Engagement that matches the research</h3>
+          <p>Commentary connects the firm's published thinking to live market conditions, on the same cadence the research is produced.</p>
+        </div>
+        <div class="outcome">
+          <h3>Research that keeps generating value</h3>
+          <p>Published theses continue producing relevant output as markets evolve around them. Nothing goes quiet after publication.</p>
+        </div>
+        <div class="outcome">
+          <h3>Voice and credibility maintained</h3>
+          <p>Every output reflects the firm's intellectual framing and terminology. Institutional positioning is consistent across every touchpoint.</p>
+        </div>
+        <div class="outcome">
+          <h3>Zero production overhead</h3>
+          <p>The research team does the thinking. The system handles curation, synthesis, and distribution preparation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <h2 class="reveal">Your firm keeps moving. Your clients should feel it.</h2>
+    <p class="reveal" style="--delay:60ms;">New research, partnerships, product launches, new business arms. We build the system that ingests whatever is happening in your firm, connects it to relevant market news, and turns it into meaningful engagement with the clients who matter most.</p>
+    <div class="reveal" style="--delay:120ms;">
+      <a class="pill-light" href="https://calendly.com/om_digital" target="_blank" rel="noopener">Book a free call</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <p><strong>OM Digital</strong></p>
+    <p class="muted">Company No. 16047123 · Registered Address: 124-128, City Road, London, England, EC1V 2NX</p>
+    <p class="muted"><a href="mailto:contact@omdigital.agency" style="color:inherit; text-decoration:none;">contact@omdigital.agency</a></p>
+    <p><strong>London-based · Global reach</strong></p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const closeBtn = menu ? menu.querySelector('.nav-close') : null;
+
+    // Mobile nav toggle
+    if (toggle && menu) {
+      const isToggleVisible = () => toggle && window.getComputedStyle(toggle).display !== 'none';
+      toggle.addEventListener('click', () => {
+        if (!isToggleVisible()) return;
+        nav.classList.toggle('nav--open');
+        toggle.setAttribute('aria-expanded', nav.classList.contains('nav--open'));
+        document.body.classList.toggle('no-scroll', nav.classList.contains('nav--open'));
+      });
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          nav.classList.remove('nav--open');
+          toggle.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('no-scroll');
+        });
+      }
+    }
+
+    // Stagger children
+    document.querySelectorAll('.stagger').forEach(group => {
+      const kids = Array.from(group.children);
+      const step = Number(group.getAttribute('data-stagger')) || 90;
+      kids.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.setProperty('--delay', (i * step) + 'ms');
+      });
+    });
+
+    // IntersectionObserver
+    if (!reduce && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    // Nav hide on scroll
+    if (!reduce && nav) {
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > lastY && y > 80) {
+          nav.classList.add('nav--hidden');
+        } else {
+          nav.classList.remove('nav--hidden');
+        }
+        lastY = y;
+      }, { passive: true });
+    }
+
+    // Hero image subtle parallax
+    if (!reduce) {
+      const hero = document.querySelector('.hero');
+      const img = document.querySelector('.hero-media img');
+      if (hero && img) {
+        let ticking = false;
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            const y = Math.max(0, -rect.top);
+            const ty = Math.min(36, y * 0.11);
+            const sc = 1.04 + Math.min(0.02, y * 0.00006);
+            img.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${sc.toFixed(3)})`;
+            ticking = false;
+          });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    }
+  })();
+</script>
+</body>
+</html>
