@@ -109,7 +109,7 @@ p {
   --parallax-y: 0px;
   will-change: transform;
   transform: translate3d(0, var(--parallax-y), 0) scale(1.04);
-  transition: transform 120ms linear;
+  transition: transform 80ms linear;
 }
 
 .hero {
@@ -121,9 +121,9 @@ p {
 
 .hero-bg {
   position: absolute;
-  inset: -28px 0;
+  inset: -70px 0;
   width: 100%;
-  height: calc(100% + 56px);
+  height: calc(100% + 140px);
   object-fit: cover;
 }
 
@@ -253,9 +253,9 @@ p {
 
 .brand-proof img {
   position: absolute;
-  inset: -24px 0;
+  inset: -56px 0;
   width: 100%;
-  height: calc(100% + 48px);
+  height: calc(100% + 112px);
   object-fit: cover;
   opacity: 0.72;
 }
@@ -431,9 +431,9 @@ p {
 
 .process > img {
   position: absolute;
-  inset: -28px 0;
+  inset: -64px 0;
   width: 100%;
-  height: calc(100% + 56px);
+  height: calc(100% + 128px);
   object-fit: cover;
   opacity: 0.58;
 }
@@ -488,8 +488,8 @@ p {
     width: 328%;
     max-width: none;
     left: -201%;
-    height: calc(100% + 44px);
-    inset-block: -22px;
+    height: calc(100% + 118px);
+    inset-block: -59px;
     object-fit: cover;
   }
 
@@ -587,8 +587,8 @@ p {
     width: 286%;
     max-width: none;
     left: -156%;
-    height: calc(100% + 42px);
-    inset-block: -21px;
+    height: calc(100% + 96px);
+    inset-block: -48px;
     opacity: 0.7;
   }
 
@@ -704,8 +704,8 @@ p {
     width: 462%;
     max-width: none;
     left: -269%;
-    height: calc(100% + 44px);
-    inset-block: -22px;
+    height: calc(100% + 96px);
+    inset-block: -48px;
     opacity: 0.35;
   }
 
