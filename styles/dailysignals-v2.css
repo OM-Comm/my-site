@@ -83,50 +83,6 @@ p {
   color: var(--om-body);
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--om-bg);
-  border-bottom: 1px solid var(--om-rule);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  min-height: 88px;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 16px;
-}
-
-.brand img {
-  width: 42px;
-  height: 25px;
-  object-fit: contain;
-}
-
-.desktop-nav {
-  display: flex;
-  gap: 18px;
-  margin-left: auto;
-}
-
-.desktop-nav a {
-  color: var(--om-body);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 15px;
-}
-
-.header-cta,
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -140,58 +96,13 @@ p {
   line-height: 14px;
 }
 
-.header-cta {
-  width: 190px;
-  margin-left: 42px;
-}
-
 .btn-primary {
   width: max-content;
   padding: 0 24px;
 }
 
-.header-cta:hover,
 .btn-primary:hover {
   background: #184947;
-}
-
-.nav-toggle {
-  display: none;
-  width: 40px;
-  height: 40px;
-  margin-left: auto;
-  border: 1px solid rgba(219, 222, 223, 0.8);
-  border-radius: 50%;
-  background: transparent;
-  color: var(--om-teal);
-  cursor: pointer;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 18px;
-  height: 2px;
-  margin: 4px auto;
-  border-radius: 2px;
-  background: currentColor;
-}
-
-.mobile-menu {
-  position: fixed;
-  inset: 76px 0 0;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  padding-top: 80px;
-  background: rgba(251, 250, 244, 0.98);
-  font-family: "Space Grotesk", Inter, sans-serif;
-  font-size: 26px;
-}
-
-.mobile-menu[hidden] {
-  display: none !important;
 }
 
 .parallax-layer {
@@ -615,27 +526,6 @@ p {
 @media (max-width: 900px) {
   .ds-wrap {
     width: calc(100vw - 48px);
-  }
-
-  .header-inner {
-    min-height: 76px;
-  }
-
-  .brand {
-    font-family: "Space Grotesk", Inter, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 19px;
-  }
-
-  .brand img,
-  .desktop-nav,
-  .header-cta {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: block;
   }
 
   .hero {
