@@ -96,6 +96,25 @@
   gap: 18px;
 }
 
+.home-v2 .nav-close {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--om-ink);
+  padding: 8px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.home-v2 .nav.nav--open .nav-close {
+  display: block;
+}
+
 .home-v2 .nav a {
   color: var(--om-body);
   font-size: 15px;
