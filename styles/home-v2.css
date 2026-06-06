@@ -201,15 +201,16 @@
   border-radius: 18px;
   overflow: hidden;
   background: #fff;
-  transform: translate3d(0, var(--parallax-y, 0), 0);
 }
 
 .home-v2 .home-v2-hero-media img {
   width: 100% !important;
-  height: 100% !important;
+  height: calc(100% + 120px) !important;
+  margin-top: -60px;
   object-fit: cover;
   border-radius: 18px;
-  transform: none !important;
+  transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.04);
+  will-change: transform;
 }
 
 .home-v2 section {
@@ -249,8 +250,11 @@
 
 .home-v2-services-map img {
   width: 100%;
-  height: 100%;
+  height: calc(100% + 100px);
+  margin-top: -50px;
   object-fit: cover;
+  transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.03);
+  will-change: transform;
 }
 
 .home-v2 .what-grid {
@@ -274,7 +278,8 @@
   width: 390px;
   min-height: 350px;
   padding: 95px 27px 28px;
-  transform: translate3d(0, var(--parallax-y, 0), 0);
+  transform: translate3d(0, var(--service-card-y, 0), 0);
+  will-change: transform;
 }
 
 .home-v2-service-card p {
@@ -713,6 +718,11 @@
     min-height: 68px;
   }
 
+  .home-v2 .reveal {
+    --reveal-duration: 0.45s;
+    --reveal-distance: 14px;
+  }
+
   .home-v2 .brand img {
     width: 42px;
     height: 25px;
@@ -859,9 +869,6 @@
     max-width: calc(100% - 118px);
   }
 
-  .home-v2 [data-parallax] {
-    transform: none !important;
-  }
 }
 
 @media (max-width: 767px) and (orientation: landscape) {

@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="images/home-v2-hero-figma.png" fetchpriority="high" />
-  <link rel="stylesheet" href="styles/home-v2.css?v=20260606-mobile-menu" />
+  <link rel="stylesheet" href="styles/home-v2.css?v=20260606-home-motion" />
   <style>
     :root {
       --bg: #ffffff;
@@ -353,8 +353,13 @@
         <a class="cta-btn" href="https://calendly.com/om_digital" target="_blank" rel="noopener">Book a free call →</a>
       </div>
     </div>
-    <div class="hero-media home-v2-hero-media" data-parallax data-parallax-speed="0.16">
+    <div class="hero-media home-v2-hero-media">
       <img
+        data-parallax
+        data-desktop-speed="0.11"
+        data-mobile-speed="0.055"
+        data-desktop-cap="52"
+        data-mobile-cap="28"
         src="images/home-v2-hero-figma.png"
         alt="Natural landscape and technical workflow structures representing AI marketing automation for fintech and crypto startups"
         width="1717"
@@ -371,15 +376,15 @@
         <h2>Services</h2>
       </div>
       <div class="home-v2-services-map" aria-hidden="true">
-        <img src="images/home-v2-services-map.png" alt="" width="1717" height="916" loading="lazy" />
+        <img data-parallax data-desktop-speed="0.06" data-mobile-speed="0.035" data-desktop-cap="44" data-mobile-cap="24" src="images/home-v2-services-map.png" alt="" width="1717" height="916" loading="lazy" />
       </div>
       <div class="what-grid">
-        <div class="card home-v2-service-card" data-parallax data-parallax-speed="0.04">
+        <div class="card home-v2-service-card">
           <h3>Bespoke</h3>
           <p>We tailor workflows for your marketing stack, from content generation to lead capture, nurture, campaign execution, etc.</p>
           <p><a class="pill" href="https://calendly.com/om_digital" target="_blank" rel="noopener">Tailor your workflows with us</a></p>
         </div>
-        <div class="card home-v2-service-card" data-parallax data-parallax-speed="0.07">
+        <div class="card home-v2-service-card">
           <h3>White Label</h3>
           <p>Daily Signals is a white-label product for trading platforms that instantly delivers market insights on assets traded on your platform at key price action events.</p>
           <p><a class="pill" href="https://omdigital.agency/dailysignals.html">Learn more</a></p>
@@ -420,7 +425,7 @@
   <section id="founder">
     <div class="wrap">
       <div class="grid home-v2-founder-grid">
-        <div class="home-v2-founder-image">
+        <div class="home-v2-founder-image" data-parallax data-desktop-speed="0.065" data-mobile-speed="0.04" data-desktop-cap="40" data-mobile-cap="24">
           <img class="founder-photo" src="images/home-v2-founder-figma.png" alt="Frankie Chan" width="410" height="390" />
         </div>
         <div class="founder-bio">
@@ -495,10 +500,7 @@
   </footer>
   <script>
     (function() {
-      const reduce = window.matchMedia && (
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-        window.matchMedia('(max-width: 767px)').matches
-      );
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const nav = document.querySelector('.nav');
       const toggle = document.querySelector('.nav-toggle');
       const menu = document.getElementById('nav-menu');
@@ -513,7 +515,7 @@
         });
       });
       // Headings and selective hero elements
-      document.querySelectorAll('section h2, .hero .lead, .hero .meta').forEach((el, i) => {
+      document.querySelectorAll('section h2, .hero .meta').forEach((el, i) => {
         el.classList.add('reveal');
         el.style.setProperty('--delay', (i * 80) + 'ms');
       });
@@ -533,85 +535,6 @@
         document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
       }
 
-      // Parallax (simplified): only the hero image moves a bit on scroll
-      if (!reduce) {
-        const hero = document.querySelector('.hero');
-        const img = document.querySelector('.hero-media img');
-        if (hero && img) {
-          let ticking = false;
-          const onScroll = () => {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(() => {
-              const rect = hero.getBoundingClientRect();
-              const y = Math.max(0, -rect.top);
-              const ty = Math.min(40, y * 0.12); // cap translate
-              const sc = 1.06 + Math.min(0.02, y * 0.00006); // slight scale
-              img.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${sc.toFixed(3)})`;
-              ticking = false;
-            });
-          };
-          window.addEventListener('scroll', onScroll, { passive: true });
-        }
-      }
-
-      // What we do: horizontal parallax from right to left for two cards
-      if (!reduce && !document.body.classList.contains('home-v2')) {
-        const section = document.querySelector('#what');
-        const cards = section ? Array.from(section.querySelectorAll('.what-grid .card')) : [];
-        if (section && cards.length === 2) {
-          // Initial offsets (px) – stronger, still subtle
-          const offsets = [32, 64];
-          // Initialize starting transform
-          cards.forEach((el, i) => { el.style.transform = `translate3d(${offsets[i]}px,0,0)`; });
-
-          let rafId;
-          const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-          let p = 0, ps = 0; // progress and smoothed
-
-          const compute = () => {
-            const r = section.getBoundingClientRect();
-            const vh = window.innerHeight || 1;
-            const total = r.height + vh * 0.6; // start earlier, end a bit after
-            const raw = 1 - (r.bottom - vh * 0.2) / total; // bias to begin as it nears view
-            p = clamp(raw, 0, 1);
-          };
-
-          const apply = () => {
-            const pAmp = Math.min(1, p * 1.35);
-            const target = 1 - Math.pow(1 - pAmp, 3);
-            ps += (target - ps) * 0.25;
-            cards.forEach((el, i) => {
-              const x = (1 - ps) * offsets[i];
-              el.style.transform = `translate3d(${x.toFixed(1)}px,0,0)`;
-            });
-            // Terminate loop once fully settled
-            if (rafId && p >= 1 && Math.abs(target - ps) < 0.001) {
-              cancelAnimationFrame(rafId); rafId = null;
-              cards.forEach(el => el.style.transform = 'translate3d(0,0,0)');
-            }
-          };
-
-          const tick = () => { compute(); apply(); if (rafId !== null) rafId = requestAnimationFrame(tick); };
-
-          if ('IntersectionObserver' in window) {
-            const io = new IntersectionObserver((entries) => {
-              entries.forEach(e => {
-                if (e.isIntersecting) { if (!rafId) rafId = requestAnimationFrame(tick); }
-                else { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
-              });
-            }, { threshold: 0 });
-            io.observe(section);
-          } else {
-            rafId = requestAnimationFrame(tick);
-          }
-        }
-      }
-
-
-      // Removed motion for End-to-end Solutions section per request
-
-      // Founder: gentle parallax (image and bio slide in from sides, heading lifts slightly)
       // Nav: hide on scroll down, show on scroll up (parallax-like slide)
       if (!reduce && nav) {
         let lastY = window.scrollY || 0;
@@ -624,9 +547,9 @@
             const nearTop = y < 48;
             if (isToggleVisible() || nav.classList.contains('nav--open')) {
               nav.classList.remove('nav--hidden');
-            } else if (nearTop || delta < -6) {
+            } else if (nearTop || delta < -12) {
               nav.classList.remove('nav--hidden');
-            } else if (delta > 6 && y > 64) {
+            } else if (delta > 12 && y > 120) {
               nav.classList.add('nav--hidden');
             }
             lastY = y; ticking = false;
@@ -660,36 +583,37 @@
       }
       if (!reduce) {
         const parallaxNodes = Array.from(document.querySelectorAll('[data-parallax]'));
-        if (parallaxNodes.length) {
-          let activeNodes = [];
-          let raf = null;
-          const updateParallax = () => {
-            activeNodes.forEach((node) => {
-              const rect = node.getBoundingClientRect();
-              const speed = Number(node.getAttribute('data-parallax-speed')) || 0.08;
-              const center = rect.top + rect.height / 2;
-              const viewportCenter = window.innerHeight / 2;
-              const offset = (viewportCenter - center) * speed;
-              node.style.setProperty('--parallax-y', `${offset.toFixed(2)}px`);
-            });
-            raf = activeNodes.length ? requestAnimationFrame(updateParallax) : null;
-          };
-          if ('IntersectionObserver' in window) {
-            const parallaxObserver = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  if (!activeNodes.includes(entry.target)) activeNodes.push(entry.target);
-                } else {
-                  activeNodes = activeNodes.filter((node) => node !== entry.target);
-                  entry.target.style.setProperty('--parallax-y', '0px');
-                }
-              });
-              if (activeNodes.length && !raf) raf = requestAnimationFrame(updateParallax);
-            }, { rootMargin: '12% 0px', threshold: 0 });
-            parallaxNodes.forEach((node) => parallaxObserver.observe(node));
+        const services = document.querySelector('#what');
+        let ticking = false;
+        const clamp = (value, cap) => Math.max(-cap, Math.min(cap, value));
+        const updateMotion = () => {
+          ticking = false;
+          const mobile = window.matchMedia('(max-width: 767px)').matches;
+          const viewportCenter = window.innerHeight / 2;
+          parallaxNodes.forEach((node) => {
+            const anchor = node.closest('section') || node.parentElement;
+            const rect = anchor.getBoundingClientRect();
+            const speed = Number(node.dataset[mobile ? 'mobileSpeed' : 'desktopSpeed']) || 0;
+            const cap = Number(node.dataset[mobile ? 'mobileCap' : 'desktopCap']) || 0;
+            const offset = clamp((viewportCenter - (rect.top + rect.height / 2)) * speed, cap);
+            node.style.setProperty('--parallax-y', `${offset.toFixed(2)}px`);
+          });
+          if (services) {
+            const rect = services.getBoundingClientRect();
+            const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.35)));
+            const lift = (1 - progress) * (mobile ? 12 : 18);
+            services.style.setProperty('--service-card-y', `${lift.toFixed(2)}px`);
           }
-        }
-
+        };
+        const requestMotion = () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateMotion);
+          }
+        };
+        window.addEventListener('scroll', requestMotion, { passive: true });
+        window.addEventListener('resize', requestMotion);
+        requestMotion();
       }
     })();
   </script>
