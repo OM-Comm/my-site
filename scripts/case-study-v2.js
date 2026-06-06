@@ -30,7 +30,7 @@
       return;
     }
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const cap = mobile ? 40 : 96;
+    const cap = mobile ? 76 : 96;
     const viewportCenter = window.innerHeight / 2;
     nodes.forEach((node) => {
       const rect = node.parentElement.getBoundingClientRect();

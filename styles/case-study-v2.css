@@ -92,9 +92,9 @@
   .case-study-v2 h1 { max-width: 350px; font-size: 38px; line-height: 42px; }
   .case-study-v2 h2 { font-size: 30px; line-height: 35px; }
   .case-study-v2 .cs-label { margin-bottom: 24px; font-size: 11px; line-height: 14px; }
-  .cs-visual { inset: -48px 0; }
+  .cs-visual { inset: -88px 0; }
   .cs-hero { min-height: 720px; }
-  .cs-hero .cs-visual { inset: -48px 0; }
+  .cs-hero .cs-visual { inset: -88px 0; }
   .cs-hero .cs-veil { background: rgba(251,250,244,.58); }
   .cs-hero-copy { padding-top: 56px; }
   .cs-hero-copy .cs-label { margin-bottom: 30px; }
@@ -105,7 +105,7 @@
   .cs-editorial .cs-veil { background: rgba(255,255,255,.78); }
   .cs-solution { min-height: 880px; }
   .cs-solution .cs-veil { background: rgba(243,247,246,.82); }
-  .cs-solution-visual { inset: -48px 0; height: auto; }
+  .cs-solution-visual { inset: -88px 0; height: auto; }
   .cs-split { display: block; padding-top: 64px; }
   .cs-prose { padding-top: 42px; }
   .cs-prose p { font-size: 16px; line-height: 25px; }
