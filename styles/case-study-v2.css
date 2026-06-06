@@ -89,6 +89,9 @@
 
 @media (max-width: 767px) {
   .case-study-v2 .wrap { width: auto; }
+  .home-v2.case-study-v2 [data-parallax] {
+    transform: translate3d(0, var(--parallax-y, 0), 0) !important;
+  }
   .case-study-v2 h1 { max-width: 350px; font-size: 38px; line-height: 42px; }
   .case-study-v2 h2 { font-size: 30px; line-height: 35px; }
   .case-study-v2 .cs-label { margin-bottom: 24px; font-size: 11px; line-height: 14px; }
@@ -141,5 +144,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cs-visual { transform: none !important; }
+  .home-v2.case-study-v2 [data-parallax] { transform: none !important; }
 }
