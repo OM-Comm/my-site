@@ -7,6 +7,10 @@
   --ginfx-mist: #f3f7f6;
 }
 
+.ginfx-case-study .home-v2-nav {
+  background: #fff;
+}
+
 .ginfx-case-study main {
   overflow: clip;
 }
