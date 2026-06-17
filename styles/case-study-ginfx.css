@@ -48,7 +48,7 @@
   inset: 0 auto 0 0;
   width: min(940px, 72vw);
   z-index: -1;
-  background: linear-gradient(90deg, rgba(251, 250, 244, .78) 0%, rgba(251, 250, 244, .46) 68%, rgba(251, 250, 244, 0) 100%);
+  background: linear-gradient(90deg, rgba(251, 250, 244, .58) 0%, rgba(251, 250, 244, .24) 68%, rgba(251, 250, 244, 0) 100%);
 }
 
 .ginfx-hero {
@@ -62,7 +62,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(251, 250, 244, .78) 0%, rgba(251, 250, 244, .44) 50%, rgba(251, 250, 244, .02) 100%);
+  background: linear-gradient(90deg, rgba(251, 250, 244, .58) 0%, rgba(251, 250, 244, .24) 50%, rgba(251, 250, 244, 0) 100%);
 }
 
 .ginfx-hero-grid {
@@ -378,7 +378,7 @@
 }
 
 .ginfx-results .ginfx-readability {
-  background: linear-gradient(90deg, rgba(255, 255, 255, .80) 0%, rgba(255, 255, 255, .42) 70%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, .56) 0%, rgba(255, 255, 255, .22) 70%, rgba(255, 255, 255, 0) 100%);
 }
 
 .ginfx-results-grid {
@@ -462,7 +462,7 @@
 
   .ginfx-readability {
     width: 100%;
-    background: rgba(251, 250, 244, .64);
+    background: rgba(251, 250, 244, .48);
   }
 
   .ginfx-hero {
@@ -470,7 +470,7 @@
   }
 
   .ginfx-hero::after {
-    background: rgba(251, 250, 244, .54);
+    background: rgba(251, 250, 244, .36);
   }
 
   .ginfx-hero-grid {
@@ -677,7 +677,7 @@
   }
 
   .ginfx-results .ginfx-readability {
-    background: rgba(255, 255, 255, .68);
+    background: rgba(255, 255, 255, .48);
   }
 
   .ginfx-results-grid {
