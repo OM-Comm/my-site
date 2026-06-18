@@ -7,6 +7,10 @@
   --cs-rule: #dbdedf;
 }
 
+.case-study-v2 .home-v2-nav {
+  background: #fff;
+}
+
 .case-study-v2 main { overflow: clip; }
 .case-study-v2 .wrap { width: min(1296px, calc(100% - 144px)); }
 .case-study-v2 .cs-label {
