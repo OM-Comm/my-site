@@ -7,14 +7,41 @@
 
   const closeMenu = () => {
     nav?.classList.remove("nav--open");
+    nav?.classList.remove("nav--hidden");
     toggle?.setAttribute("aria-expanded", "false");
     document.body.classList.remove("no-scroll");
   };
+  const isToggleVisible = () => toggle && window.getComputedStyle(toggle).display !== "none";
+
+  if (!reducedMotion.matches && nav) {
+    let lastY = window.scrollY || 0;
+    let navTicking = false;
+    const onScrollNav = () => {
+      if (navTicking) return;
+      navTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        const delta = y - lastY;
+        const nearTop = y < 48;
+        if (isToggleVisible() || nav.classList.contains("nav--open")) {
+          nav.classList.remove("nav--hidden");
+        } else if (nearTop || delta < -12) {
+          nav.classList.remove("nav--hidden");
+        } else if (delta > 12 && y > 120) {
+          nav.classList.add("nav--hidden");
+        }
+        lastY = y;
+        navTicking = false;
+      });
+    };
+    window.addEventListener("scroll", onScrollNav, { passive: true });
+  }
 
   toggle?.addEventListener("click", () => {
     const open = nav.classList.toggle("nav--open");
     toggle.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("no-scroll", open);
+    if (!open) nav.classList.remove("nav--hidden");
   });
   close?.addEventListener("click", closeMenu);
   menu?.addEventListener("click", (event) => {
