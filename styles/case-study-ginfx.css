@@ -178,8 +178,8 @@
   line-height: 18px;
 }
 
-.ginfx-proof-footer {
-  margin-top: 36px;
+.ginfx-case-study .ginfx-proof-footer {
+  margin-top: 54px;
   font-size: 17px;
   line-height: 24px;
 }
@@ -529,6 +529,10 @@
   .ginfx-proof-footer {
     font-size: 12px;
     line-height: 16px;
+  }
+
+  .ginfx-case-study .ginfx-proof-footer {
+    margin-top: 34px;
   }
 
   .ginfx-metrics {
