@@ -30,11 +30,12 @@
       return;
     }
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const cap = mobile ? 76 : 96;
+    const defaultCap = mobile ? 76 : 96;
     const viewportCenter = window.innerHeight / 2;
     nodes.forEach((node) => {
       const rect = node.parentElement.getBoundingClientRect();
       const speed = Number(node.dataset[mobile ? "mobileSpeed" : "desktopSpeed"]);
+      const cap = Number(node.dataset[mobile ? "mobileCap" : "desktopCap"]) || defaultCap;
       const raw = (viewportCenter - (rect.top + rect.height / 2)) * speed;
       const offset = Math.max(-cap, Math.min(cap, raw));
       node.style.setProperty("--parallax-y", `${offset.toFixed(2)}px`);
