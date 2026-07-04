@@ -1129,6 +1129,40 @@ body.daily-signals-v2 p {
   overflow-wrap: anywhere;
 }
 
+@media (min-width: 1024px) {
+  body.daily-signals-v2 main > section.faq.section-pad {
+    padding-top: 156px;
+  }
+
+  body.daily-signals-v2 .faq-list {
+    max-width: 840px;
+    margin-top: 44px;
+  }
+
+  body.daily-signals-v2 .faq-list article {
+    display: block;
+    padding: 26px 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--om-rule);
+  }
+
+  body.daily-signals-v2 .faq-list article:last-child {
+    border-bottom: 1px solid var(--om-rule);
+  }
+
+  body.daily-signals-v2 .faq-list h3 {
+    margin: 0 0 12px;
+    max-width: 840px;
+    overflow-wrap: break-word;
+  }
+
+  body.daily-signals-v2 .faq-list p {
+    margin: 0;
+    max-width: 72ch;
+    overflow-wrap: break-word;
+  }
+}
+
 @media (max-width: 900px) {
   body.daily-signals-v2 main > section.section-pad {
     padding: 72px 0;
