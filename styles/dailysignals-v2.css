@@ -1130,8 +1130,20 @@ body.daily-signals-v2 p {
 }
 
 @media (min-width: 1024px) {
+  body.daily-signals-v2.home-v2 main > section.faq {
+    width: auto;
+    margin-top: 0;
+    border-top: 0;
+  }
+
   body.daily-signals-v2 main > section.faq.section-pad {
     padding-top: 156px;
+  }
+
+  body.daily-signals-v2 .faq .ds-wrap {
+    width: min(1296px, calc(100vw - 48px));
+    margin-left: auto;
+    margin-right: auto;
   }
 
   body.daily-signals-v2 .faq-list {
